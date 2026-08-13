@@ -3,7 +3,7 @@
 const Dashboard = () => {
     return (
         <div>
-            dashboard
+            Hello! This is Venue Management Software
         </div>
     )
 }

@@ -9,7 +9,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@Components/index";
-import { ChevronRight, Home } from "lucide-react";
+import { ChevronRight, Home, PersonStandingIcon } from "lucide-react";
 import React, { useCallback, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -49,7 +49,11 @@ export function AppSidebar() {
         url: "/dashboard",
         icon: Home,
       },
-      
+      {
+        title: "Customers",
+        url: "/customer",
+        icon: PersonStandingIcon,
+      },
     ],
     [],
   );
@@ -67,7 +71,7 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel className="p-4 flex items-center h-20 justify-center sticky top-2 bg-sidebar z-20 border-b border-sidebar-border">
             <div className="text-lg font-semibold text-sidebar-foreground">
-              LMS
+             VM
             </div>
           </SidebarGroupLabel>
           <SidebarGroupContent className="flex flex-col gap-2 p-2">
@@ -159,7 +163,7 @@ export function AppSidebar() {
       </SidebarContent>
       <SidebarFooter className="border-t border-sidebar-border p-4 flex items-center justify-center">
         <div className="text-sm font-semibold text-sidebar-foreground">
-          LMS-v1
+          Venue Nanagement System
         </div>
       </SidebarFooter>
     </Sidebar>
