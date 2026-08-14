@@ -3,6 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import {useForm} from "react-hook-form";
 import { customerSchema, type CustomerFormValues, } from "@/schemas/customer";
 import { Button, Input} from "@/components/index";
+import { toast } from "sonner";
 
 function Create(){
     const navigate = useNavigate();
@@ -10,6 +11,15 @@ function Create(){
     
     function OnSubmit (data: CustomerFormValues){
             console.log("Save",data);
+            const storedCustomers = localStorage.getItem("customers");
+            const customers : CustomerFormValues[] = storedCustomers ? JSON.parse(storedCustomers) : [];
+            const updatedcustomers = [...customers,data];
+            localStorage.setItem("customers", JSON.stringify(updatedcustomers));
+
+            toast.success("Customer saved successfully!");
+            setTimeout(()=>{
+                    navigate("/customer");
+            },2000);
     }
     
     

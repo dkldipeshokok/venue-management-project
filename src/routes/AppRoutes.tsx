@@ -3,10 +3,13 @@ import Layout from "@/components/common/AuthLayout"
 import Dashboard from "@/views/Dashboard"
 import Customers from "@/pages/customers/customers"
 import Create from "@/pages/customers/create"
+import { Toaster } from "sonner"
+
 
 function AppRoutes(){
     return(
         <BrowserRouter>
+        <Toaster />
         <Routes>
             <Route element={<Layout />}>
             <Route path="/" element={<Dashboard />} />
