@@ -8,15 +8,12 @@ export const customerSchema = yup.object({
         .required("Please enter organization name"),
     phone: yup
         .string()
-        .length(10)
+        .length(10,"The length must be 10 digits")
         .required("Please enter phone number"),
     email: yup
         .string()
         .email("Enter valid email")
         .required("Please  enter email"),
-    status: yup
-        .string()
-        .required("Active or not"),
 }
 );
 export type CustomerFormValues =
