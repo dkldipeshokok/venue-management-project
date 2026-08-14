@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-const customerSchema = yup.object({
+export const customerSchema = yup.object({
     name: yup
         .string()
         .required("Please enter name"),
@@ -12,11 +12,11 @@ const customerSchema = yup.object({
         .required("Please enter phone number"),
     email: yup
         .string()
-        .email()
+        .email("Enter valid email")
         .required("Please  enter email"),
     status: yup
         .string()
-        .required(),
+        .required("Active or not"),
 }
 );
 export type CustomerFormValues =
