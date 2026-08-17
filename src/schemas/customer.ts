@@ -14,7 +14,10 @@ export const customerSchema = yup.object({
         .string()
         .email("Enter valid email")
         .required("Please  enter email"),
+    status: yup
+        .string()
+        .required(),
 }
 );
-export type CustomerFormValues =
+export type CustomerValues =
   yup.InferType<typeof customerSchema>;

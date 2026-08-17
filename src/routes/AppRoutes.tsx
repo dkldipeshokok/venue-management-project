@@ -15,7 +15,7 @@ function AppRoutes(){
             <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/customer" element={<Customers />} />
-            <Route path="/create" element={<Create/>} />
+            <Route path="/customer/create" element={<Create/>} />
             </Route>
             
         </Routes>
