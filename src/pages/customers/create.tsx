@@ -10,13 +10,16 @@ function Create(){
     function OnSubmit (data: CustomerValues){
             const storedCustomers = localStorage.getItem("customers");
             const customers : CustomerValues[] = storedCustomers ? JSON.parse(storedCustomers) : [];
-            const updatedcustomers = [...customers,data];
+
+            const newC : CustomerValues = {...data, id: customers.length+1};    
+
+            const updatedcustomers = [...customers,newC];
             localStorage.setItem("customers", JSON.stringify(updatedcustomers));
 
             toast.success("Customer saved successfully!");
             setTimeout(()=>{
                     navigate("/customer");
-            },2000);
+            },900);
     }
     
     
@@ -26,16 +29,16 @@ function Create(){
                 fields={customerFields} 
                 schema={customerSchema}
                 defaultValues={{
-                    name:"Ram",
-                    phone:"1234567890",
-                    email:"heloo983@hallow.com",
-                    organization:"Hallow",
-                    status:""
+                    name:"",
+                    phone:"",
+                    email:"",
+                    organization:"",
+                    status: "Active",
                 }
                 }
                 onSubmit={OnSubmit}
                 onCancel={() => navigate("/customer")}
-                featureName="Create"
+                featureName="Customer"
                 formDescription="Enter customer Details"
                 mode="create"
                 submitButtonText="Save Customer"

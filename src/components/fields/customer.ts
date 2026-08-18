@@ -31,7 +31,7 @@ const customerFields: FieldConfig[] = [
         type: "select",
         placeholder:"Choose the status",
         options: [
-            {label: "Active", value: "Value"},
+            {label: "Active", value: "Active"},
             {label: "Inactive", value: "Inactive" }
         ],
     },

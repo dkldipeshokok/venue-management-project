@@ -1,21 +1,26 @@
 import * as yup from 'yup';
+
 export const customerSchema = yup.object({
+    id: yup
+        .number()
+        .optional(),
     name: yup
         .string()
-        .required("Please enter name"),
+        .required(),
     organization: yup
         .string()
-        .required("Please enter organization name"),
+        .required(),
     phone: yup
         .string()
         .length(10,"The length must be 10 digits")
-        .required("Please enter phone number"),
+        .required(),
     email: yup
         .string()
         .email("Enter valid email")
-        .required("Please  enter email"),
+        .required(),
     status: yup
         .string()
+        .oneOf(["Active","Inactive"],"Choose the status")
         .required(),
 }
 );
