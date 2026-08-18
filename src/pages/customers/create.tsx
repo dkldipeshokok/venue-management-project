@@ -11,7 +11,10 @@ function Create(){
             const storedCustomers = localStorage.getItem("customers");
             const customers : CustomerValues[] = storedCustomers ? JSON.parse(storedCustomers) : [];
 
-            const newC : CustomerValues = {...data, id: customers.length+1};    
+
+
+            const newId = customers.length > 0 ? Math.max(...customers.map(c => c.id ?? 0)) + 1 : 1;
+            const newC : CustomerValues = {...data, id: newId};    
 
             const updatedcustomers = [...customers,newC];
             localStorage.setItem("customers", JSON.stringify(updatedcustomers));
