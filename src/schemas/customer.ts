@@ -2,7 +2,7 @@ import * as yup from 'yup';
 
 export const customerSchema = yup.object({
     id: yup
-        .number()
+        .string()
         .optional(),
     name: yup
         .string()

@@ -8,21 +8,23 @@ function Create(){
     const navigate = useNavigate();
     
     function OnSubmit (data: CustomerValues){
-            const storedCustomers = localStorage.getItem("customers");
-            const customers : CustomerValues[] = storedCustomers ? JSON.parse(storedCustomers) : [];
+        const storedCustomers = localStorage.getItem("customers");
+        const customers : CustomerValues[] = storedCustomers ? JSON.parse(storedCustomers) : [];
 
+        const newID = customers.reduce((highest, customer) => {
+                const match = String(customer.id ?? "").match(/^CUS(\d+)$/);                        const numericId = match ? Number(match[1]) : Number(customer.id) || 0;
+                return Math.max(highest, numericId);
+                }, 0);
+        const newId = `CUS${String(newID + 1).padStart(6, "0")}`;
+        const newC : CustomerValues = {...data, id: newId};    
 
+        const updatedcustomers = [...customers,newC];
+        localStorage.setItem("customers", JSON.stringify(updatedcustomers));
 
-            const newId = customers.length > 0 ? Math.max(...customers.map(c => c.id ?? 0)) + 1 : 1;
-            const newC : CustomerValues = {...data, id: newId};    
-
-            const updatedcustomers = [...customers,newC];
-            localStorage.setItem("customers", JSON.stringify(updatedcustomers));
-
-            toast.success("Customer saved successfully!");
-            setTimeout(()=>{
-                    navigate("/customer");
-            },900);
+        toast.success("Customer saved successfully!");
+        setTimeout(()=>{
+            navigate("/customer");
+        },900);
     }
     
     

@@ -293,3 +293,12 @@ export interface FieldConfig {
   description?: string;
   options?: FieldOption[]; // For select type
 }
+
+export type Customer = {
+  id: string;
+  name: string;
+  organization: string;
+  phone: string;
+  email: string;
+  status: "Active" | "Inactive";
+};

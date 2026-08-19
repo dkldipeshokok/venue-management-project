@@ -14,14 +14,14 @@ function Customers(){
         }
     },[]);
 
-    const DeleteUser = (id: number) => {
+    const DeleteUser = (id: string) => {
         const updatedCustomers = customer.filter(
-            (item) => item.id !== id
+            (item) => String(item.id) !== id
         );
 
     localStorage.setItem("customers",JSON.stringify(updatedCustomers));
         setcustomer(updatedCustomers);
-        toast.success("Customer saved successfully!");
+        toast.success("Customer Deleted successfully!");
     };
     
     return(

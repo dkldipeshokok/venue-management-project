@@ -1,9 +1,9 @@
 import type { ColumnDef } from "@tanstack/react-table";
-import type { Customer } from "@/types/customer";
+import type { Customer } from "@/types/types";
 import {Link} from "react-router-dom";
-import { SquarePen, Trash2, View } from "lucide-react";
+import { Eye, SquarePen, Trash2 } from "lucide-react";
 
-const Customercolumns = (DeleteUser: (id: number) => void) : ColumnDef<Customer>[] => [
+const Customercolumns = (DeleteUser: (id: string) => void) : ColumnDef<Customer>[] => [
     {
         accessorKey : "id",
         header : "Customer ID"
@@ -43,14 +43,14 @@ const Customercolumns = (DeleteUser: (id: number) => void) : ColumnDef<Customer>
             const id = row.original.id;
             return(
                 <div className="flex gap-3">
-                    <Link to={`/customer/read/${id}`}  className="text-blue-500"> <View /> </Link>
-                    <Link to={`/customer/update/${id}`} className="text-orange-500"> <SquarePen /> </Link>
+                    <Link to={`/customer/read/${id}`}  className="text-blue-500 hover:scale-110"> <Eye /> </Link>
+                    <Link to={`/customer/update/${id}`} className="text-orange-500 hover:scale-110"> <SquarePen /> </Link>
                     <button onClick={() => {
                         const ask = window.confirm("Are you sure you want to delete this customer?");
                         if(ask){
                             DeleteUser(id)
                         }
-                    }} className="text-red-500 hover:text-red-700">
+                    }} className="text-red-500 hover:scale-110">
                         <Trash2 />
                     </button>
                 </div>

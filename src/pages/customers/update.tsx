@@ -40,18 +40,16 @@ function Update() {
 
     const customers: CustomerValues[] = JSON.parse(storedCustomers);
 
-    const cid = Number(id);
+    const cid = customers.findIndex(
+      (customer) => String(customer.id) === id
+    );
 
-    if (
-      Number.isNaN(cid) ||
-      cid < 0 ||
-      cid >= customers.length
-    ) {
+    if (cid === -1) {
       toast.error("Customer not found!");
       return;
     }
 
-    customers[cid] = data;
+    customers[cid] = { ...data, id: customers[cid].id };
 
     localStorage.setItem("customers", JSON.stringify(customers));
 
