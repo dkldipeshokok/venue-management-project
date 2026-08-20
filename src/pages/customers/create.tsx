@@ -8,8 +8,8 @@ function Create(){
     const navigate = useNavigate();
     
     function OnSubmit (data: CustomerValues){
-        const storedCustomers = localStorage.getItem("customers");
-        const customers : CustomerValues[] = storedCustomers ? JSON.parse(storedCustomers) : [];
+        const storedData = localStorage.getItem("customers");
+        const customers : CustomerValues[] = storedData ? JSON.parse(storedData) : [];
 
         const newID = customers.reduce((highest, customer) => {
                 const match = String(customer.id ?? "").match(/^CUS(\d+)$/);                        const numericId = match ? Number(match[1]) : Number(customer.id) || 0;

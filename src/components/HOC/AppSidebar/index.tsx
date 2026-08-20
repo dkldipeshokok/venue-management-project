@@ -54,6 +54,11 @@ export function AppSidebar() {
         url: "/customer",
         icon: PersonStandingIcon,
       },
+      {
+        title: "Venue Management",
+        url: "/venue",
+        icon: Home,
+      }
     ],
     [],
   );

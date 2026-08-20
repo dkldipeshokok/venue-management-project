@@ -8,9 +8,9 @@ import { toast } from "sonner";
 function Customers(){
     const [customer, setcustomer] = useState<CustomerValues[]>([]);
     useEffect(() =>{
-        const storedCustomers = localStorage.getItem("customers");
-        if (storedCustomers) {
-           setcustomer(JSON.parse(storedCustomers));
+        const storedData = localStorage.getItem("customers");
+        if (storedData) {
+           setcustomer(JSON.parse(storedData));
         }
     },[]);
 
