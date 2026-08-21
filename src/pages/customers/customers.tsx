@@ -1,23 +1,41 @@
-import { Link } from "react-router-dom";
 import Customercolumns from "@/components/columns/customer";
 import { DataTables } from "@/components/TableComponent/Table";
-import customers from "@/data/customer";
+import {type  CustomerValues } from "@/schemas/customer";
+import { useState, useEffect } from "react";
+import {PageHeader} from "@/components/common/PageHeader";
+import { toast } from "sonner";
 
 function Customers(){
-        return(
-            <div className="w-full p-6">
-                <div className="flex items-center justify-between mb-6">
-                    <div>
-                        <h1 className="text-2xl font-bold">Customers</h1>
-                        <p className="text-muted-foreground">Manage your customers</p>
-                    </div>
-                        <Link to="/create" className="rounded-md bg-primary px-4 py-2 text-primary-foreground"> + Add Customer</Link>
-                </div>
-                <input type="text" placeholder="Search Customers" className="mb-4 rounded-md border px-4 py-2" />
-                <div>
-                    <DataTables columns={Customercolumns} data = {customers} />
-                </div>
+    const [customer, setcustomer] = useState<CustomerValues[]>([]);
+    useEffect(() =>{
+        const storedData = localStorage.getItem("customers");
+        if (storedData) {
+           setcustomer(JSON.parse(storedData));
+        }
+    },[]);
+
+    const DeleteUser = (id: string) => {
+        const updatedCustomers = customer.filter(
+            (item) => String(item.id) !== id
+        );
+
+    localStorage.setItem("customers",JSON.stringify(updatedCustomers));
+        setcustomer(updatedCustomers);
+        toast.success("Customer Deleted successfully!");
+    };
+    
+    return(
+        <div className="w-full p-6">
+            <PageHeader title="Customers"
+                description="Manage your customers"
+                createPath="/customer/create"
+                createLabel="Add Customer"
+            >
+
+            </PageHeader>
+                <DataTables columns={Customercolumns(DeleteUser)} data = {customer} />
             </div>
+       
         )
 }
 export default Customers;

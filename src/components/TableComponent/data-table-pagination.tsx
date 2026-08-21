@@ -6,7 +6,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@Components/index";
+import type { Table } from "@tanstack/react-table";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+
 import { useSearchParams } from "react-router-dom";
 
 export type TQueryMeta = {
@@ -18,178 +20,124 @@ export type TQueryMeta = {
   hasNextPage: boolean;
 };
 
-interface DataTablePaginationProps {
+interface DataTablePaginationProps<TData> {
+  table?: Table<TData>; // Optional since we're not using it
   meta?: TQueryMeta;
 }
 
-export function DataTablePagination({
+export function DataTablePagination<TData>({
   meta,
-}: DataTablePaginationProps) {
+}: DataTablePaginationProps<TData>) {
   const [searchParam, setSearchParams] = useSearchParams();
-
   if (!meta) {
     return null;
   }
 
-  const changePage = (page: number) => {
-    const params = new URLSearchParams(searchParam);
-
-    params.set("page", String(page));
-
-    setSearchParams(params);
-  };
-
-  const changePageSize = (take: number) => {
-    const params = new URLSearchParams(searchParam);
-
-    params.set("take", String(take));
-    params.set("page", "1");
-
-    setSearchParams(params);
-  };
-
   return (
-    <div
-      className={`flex items-center justify-end px-2 mt-6 ${
-        meta.itemCount <= 0 ? "hidden" : ""
-      }`}
-    >
+    <div className={`flex items-center justify-end px-2 mt-6 ${meta.itemCount <= 0 ? "hidden" : ""}`}>
       <div className="flex items-center space-x-6 lg:space-x-8">
-
-        {/* Total rows */}
-        <p className="text-sm font-medium">
+        <p className="text-sm font-medium capitalize">
           Total rows: {meta.itemCount}
         </p>
-
-        {/* Rows per page */}
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">
-            Rows per page
-          </p>
-
+          <p className="text-sm font-medium">Rows per page</p>
           <Select
-            value={String(meta.take)}
-            onValueChange={(value) =>
-              changePageSize(Number(value))
-            }
+            value={`${meta?.take}`}
+            onValueChange={(value) => {
+              searchParam.set("take", value);
+              searchParam.set("page", "1");
+              setSearchParams(searchParam);
+            }}
           >
             <SelectTrigger className="h-8 w-[70px]">
-              <SelectValue />
+              <SelectValue placeholder={10} />
             </SelectTrigger>
-
             <SelectContent side="top">
               {[10, 20, 30, 40, 50].map((pageSize) => (
-                <SelectItem
-                  key={pageSize}
-                  value={String(pageSize)}
-                >
+                <SelectItem key={pageSize} value={`${pageSize}`}>
                   {pageSize}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
-
-        {/* Jump to page */}
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">
-            Jump to page
-          </p>
-
+          <p className="text-sm font-medium">Jump to page</p>
           <Select
-            value={String(meta.page)}
-            onValueChange={(value) =>
-              changePage(Number(value))
-            }
+            value={`${meta?.page}`}
+            onValueChange={(value) => {
+              searchParam.set("page", value);
+              setSearchParams(searchParam);
+            }}
           >
             <SelectTrigger className="h-8 w-[70px]">
-              <SelectValue />
+              <SelectValue placeholder={meta?.page} />
             </SelectTrigger>
-
             <SelectContent side="top">
-              {Array.from(
-                { length: meta.pageCount },
-                (_, i) => (
-                  <SelectItem
-                    key={i + 1}
-                    value={String(i + 1)}
-                  >
-                    {i + 1}
-                  </SelectItem>
-                ),
-              )}
+              {Array.from({ length: meta.pageCount }, (_, i) => (
+                <SelectItem key={i + 1} value={`${i + 1}`}>
+                  {i + 1}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
-
-        {/* Page information */}
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-          Page {meta.page} of {meta.pageCount}
+          Page {meta?.page} of {meta?.pageCount}
         </div>
-
-        {/* Navigation */}
         <div className="flex items-center space-x-2">
-
-          {/* First page */}
           <Button
             variant="outline"
             className="hidden h-8 w-8 p-0 lg:flex"
-            onClick={() => changePage(1)}
-            disabled={!meta.hasPreviousPage}
+            onClick={() => {
+              searchParam.set("page", "1");
+              setSearchParams(searchParam);
+            }}
+            disabled={!meta?.hasPreviousPage}
           >
-            <span className="sr-only">
-              Go to first page
-            </span>
-            {"<<"}
+            <span className="sr-only">Go to first page</span>
+            {`<<`}
+            {/* <DoubleArrowLeftIcon className="h-4 w-4" /> */}
           </Button>
-
-          {/* Previous */}
           <Button
             variant="outline"
             className="h-8 w-8 p-0"
-            onClick={() =>
-              changePage(Math.max(1, meta.page - 1))
-            }
-            disabled={!meta.hasPreviousPage}
+            onClick={() => {
+              const previousPage = Math.max(1, meta.page - 1);
+              searchParam.set("page", `${previousPage}`);
+              setSearchParams(searchParam);
+            }}
+            disabled={!meta?.hasPreviousPage}
           >
-            <span className="sr-only">
-              Go to previous page
-            </span>
-
+            <span className="sr-only">Go to previous page</span>
             <ChevronLeftIcon className="h-4 w-4" />
           </Button>
-
-          {/* Next */}
           <Button
             variant="outline"
             className="h-8 w-8 p-0"
-            onClick={() =>
-              changePage(
-                Math.min(meta.pageCount, meta.page + 1),
-              )
-            }
-            disabled={!meta.hasNextPage}
+            onClick={() => {
+              const nextPage = Math.min(meta.pageCount, meta.page + 1);
+              searchParam.set("page", `${nextPage}`);
+              setSearchParams(searchParam);
+            }}
+            disabled={!meta?.hasNextPage}
           >
-            <span className="sr-only">
-              Go to next page
-            </span>
-
+            <span className="sr-only">Go to next page</span>
             <ChevronRightIcon className="h-4 w-4" />
           </Button>
-
-          {/* Last page */}
           <Button
             variant="outline"
             className="hidden h-8 w-8 p-0 lg:flex"
-            onClick={() => changePage(meta.pageCount)}
-            disabled={!meta.hasNextPage}
+            onClick={() => {
+              searchParam.set("page", `${meta.pageCount}`);
+              setSearchParams(searchParam);
+            }}
+            disabled={!meta?.hasNextPage}
           >
-            <span className="sr-only">
-              Go to last page
-            </span>
-            {">>"}
+            <span className="sr-only">Go to last page</span>
+            {/* <DoubleArrowRightIcon className="h-4 w-4" /> */}
+            {`>>`}
           </Button>
-
         </div>
       </div>
     </div>

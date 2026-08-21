@@ -1,7 +1,9 @@
 import type { ColumnDef } from "@tanstack/react-table";
-import type { Customer } from "@/types/customer";
+import type { Customer } from "@/types/types";
+import {Link} from "react-router-dom";
+import { Eye, SquarePen, Trash2 } from "lucide-react";
 
-const Customercolumns: ColumnDef<Customer>[] = [
+const Customercolumns = (DeleteUser: (id: string) => void) : ColumnDef<Customer>[] => [
     {
         accessorKey : "id",
         header : "Customer ID"
@@ -24,17 +26,34 @@ const Customercolumns: ColumnDef<Customer>[] = [
     },
     {
         accessorKey : "status",
-        header : "Status"
+        header : "Status",
+        cell : ({row}) => {
+            const status = row.getValue("status");
+            return(
+                <span className={`px-2 py-1 rounded-md text-white ${status === "Active" ? "bg-green-500 text-green-900" : "bg-red-500 text-red"}`}>
+                    {status === "Active" ? "Active" : "Inactive"}
+                </span>
+            )
+        }
     },
     {
         accessorKey : "action",
         header : "Action",
         cell : ({row}) => {
+            const id = row.original.id;
             return(
-                <div className="flex gap-2">
-                    <button className="text-blue-600">View</button>
-                    <button className="text-yellow-600">Edit</button>
-                    <button className="text-red-600">Delete</button>
+                <div className="flex gap-3">
+                    <Link to={`/customer/read/${id}`}  className="bg-blue-500 text-white px-2 py-2 rounded-md"> <Eye /> </Link>
+                    <Link to={`/customer/update/${id}`} className="bg-orange-500 text-white px-2 py-2 rounded-md"> <SquarePen /> </Link>
+                    <button onClick={() => {
+                            const ask = window.confirm("Are you sure you want to delete this customer?");
+                            if(ask){
+                                 DeleteUser(id)
+                            }
+                        }} className="bg-red-500 text-white px-2 py-2 rounded-md"
+                    >
+                    <Trash2 />
+                    </button>
                 </div>
             )
         }

@@ -35,7 +35,7 @@ export const PageHeader = ({
 }: PageHeaderProps) => {
   const createButton = createPath && (
     <Link to={createPath}>
-      <Button className="bg-button-primary hover:bg-button-primary/80 text-white font-semibold px-6 rounded-full transition-all h-10 flex items-center gap-2 shadow-sm">
+      <Button className="bg-button-primary hover:bg-button-primary/80 text-blue-600 font-semibold px-6 rounded-full transition-all h-10 flex items-center gap-2 shadow-sm">
         <Plus className="w-4 h-4" strokeWidth={2.5} />
         {createLabel || `Add ${title?.replace(/s$/, "") || "New"}`}
       </Button>

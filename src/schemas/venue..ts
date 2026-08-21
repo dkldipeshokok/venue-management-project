@@ -1,28 +1,29 @@
-import * as yup from 'yup';
+import * as yup from "yup";
 
-export const customerSchema = yup.object({
+export const venueSchema = yup.object({
     id: yup
         .string()
         .optional(),
     name: yup
         .string()
         .required(),
-    organization: yup
+    image: yup
         .string()
         .required(),
-    phone: yup
+    type: yup
         .string()
-        .length(10,"The length must be 10 digits")
         .required(),
-    email: yup
-        .string()
-        .email("Enter valid email")
+    price: yup
+        .number()
+        .required(),
+    capacity: yup
+        .number()
         .required(),
     status: yup
         .string()
         .oneOf(["Active","Inactive"],"Choose the status")
         .required(),
-}
-);
-export type CustomerValues =
-  yup.InferType<typeof customerSchema>;
+
+});
+
+export type VenueValues = yup.InferType<typeof venueSchema>;

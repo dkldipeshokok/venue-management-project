@@ -278,7 +278,7 @@ export interface PieChartProps {
   colors?: string[];
 }
 
-export type FieldType = 'text' | 'email' | 'password' | 'textarea' | 'select' | 'multiselect' | 'checkbox' | 'editor';
+export type FieldType = 'text' | 'email' | 'password' | 'textarea' | 'select' | 'multiselect' | 'checkbox' | 'editor' | 'number' | 'date' | 'time' | 'datetime' | 'file' | 'radio' | 'switch' | 'color' | 'url' | 'tel' | 'range' | 'search' | 'hidden';
 
 export interface FieldOption {
   label: string;
@@ -292,4 +292,24 @@ export interface FieldConfig {
   placeholder?: string;
   description?: string;
   options?: FieldOption[]; // For select type
+}
+
+export type Customer = {
+  id: string;
+  name: string;
+  organization: string;
+  phone: string;
+  email: string;
+  status: "Active" | "Inactive";
+};
+export type VenueData = {
+  id: string;
+  name: string;
+  type: string;
+  image: URL;
+  price: number;
+  address: string;
+  description: string;
+  capacity: number;
+  status: "Active" | "Inactive";
 }
