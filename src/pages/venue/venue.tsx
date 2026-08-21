@@ -9,7 +9,7 @@ function Venue(){
 
     const [V, setV] = useState<VenueValues[]> ([]);
     useEffect (() => {
-        const storedData = localStorage.getItem("Venues");
+        const storedData = localStorage.getItem("venues");
         if(storedData){
             setV(JSON.parse(storedData));
         }
@@ -19,7 +19,7 @@ function Venue(){
         const updatedVenue = V.filter(
              (item) => String(item.id) !== id
         );
-        localStorage.setItem("Venues",JSON.stringify(updatedVenue));
+        localStorage.setItem("venues",JSON.stringify(updatedVenue));
         setV(updatedVenue);
         toast.success("Venue Deleted Successfully");
     }
@@ -33,7 +33,7 @@ function Venue(){
                 createLabel="Add Venue"
             />
             
-            <DataTables columns={venueCol()} data = {[Venue]} />
+            <DataTables columns={venueCol(DeleteVenue)} data = {V} />
         </div>
     )
 }

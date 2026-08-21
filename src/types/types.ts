@@ -306,9 +306,10 @@ export type VenueData = {
   id: string;
   name: string;
   type: string;
-  image: string;
+  image: URL;
   price: number;
   address: string;
+  description: string;
   capacity: number;
   status: "Active" | "Inactive";
 }

@@ -10,7 +10,7 @@ const venueFields: FieldConfig[] = [
     {
         name : "image",
         label: "Image",
-        type:"text",
+        type:"url",
         placeholder:"Enter Image URL"
     },
     {
@@ -39,6 +39,18 @@ const venueFields: FieldConfig[] = [
             { value: "Active", label: "Active" },
             { value: "Inactive", label: "Inactive" }
         ]
+    },
+    {
+        name : "address",
+        label: "Address",
+        type:"text",
+        placeholder:"Enter Address"
+    },
+    {
+        name : "description",
+        label: "Description",
+        type:"textarea",
+        placeholder:"Enter Description"
     }
 ];
 export default venueFields;

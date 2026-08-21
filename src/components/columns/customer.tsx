@@ -43,15 +43,16 @@ const Customercolumns = (DeleteUser: (id: string) => void) : ColumnDef<Customer>
             const id = row.original.id;
             return(
                 <div className="flex gap-3">
-                    <Link to={`/customer/read/${id}`}  className="text-blue-500 hover:scale-110"> <Eye /> </Link>
-                    <Link to={`/customer/update/${id}`} className="text-orange-500 hover:scale-110"> <SquarePen /> </Link>
+                    <Link to={`/customer/read/${id}`}  className="bg-blue-500 text-white px-2 py-2 rounded-md"> <Eye /> </Link>
+                    <Link to={`/customer/update/${id}`} className="bg-orange-500 text-white px-2 py-2 rounded-md"> <SquarePen /> </Link>
                     <button onClick={() => {
-                        const ask = window.confirm("Are you sure you want to delete this customer?");
-                        if(ask){
-                            DeleteUser(id)
-                        }
-                    }} className="text-red-500 hover:scale-110">
-                        <Trash2 />
+                            const ask = window.confirm("Are you sure you want to delete this customer?");
+                            if(ask){
+                                 DeleteUser(id)
+                            }
+                        }} className="bg-red-500 text-white px-2 py-2 rounded-md"
+                    >
+                    <Trash2 />
                     </button>
                 </div>
             )

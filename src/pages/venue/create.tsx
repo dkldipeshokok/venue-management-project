@@ -36,9 +36,7 @@ function CreateVenue(){
             schema={venueSchema}
             defaultValues={{
                 name: "",
-                image: "",
-                price: 0,
-                capacity: 0,                
+                image: "",               
                 status: "Active"
             }}
             onSubmit={OnSubmit}
