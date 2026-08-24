@@ -14,11 +14,7 @@ function VenueView() {
 
     if (storedData) {
       const venues: VenueValues[] = JSON.parse(storedData);
-
-      const foundVenue = venues.find(
-        (item) => String(item.id) === id
-      );
-
+      const foundVenue = venues.find(  (item) => String(item.id) === id    );
       setV(foundVenue || null);
     }
   }, [id]);
@@ -28,27 +24,44 @@ function VenueView() {
   }
 
   return (
+    <div className="flex flex-col items-center justify-center p-4 space-y-5">
+          <h1>Venue Details</h1>
+
     <div>
-    <h1>Venue Details</h1>
+          <img  src={`/${V.image}`} />
+    </div>
+  
+    <div>
+          {V.id}
+    </div>
 
-    <p>Image:</p><img  src={V.image} />
+    <div>
+          {V.name}
+    </div>
 
-    <p>ID: {V.id}</p>
+    <div>
+          Type: {V.type}
+    </div>
 
-    <p>Name: {V.name}</p>
+    <div>
+          Capacity: {V.capacity}
+    </div>
 
-    <p>Type: {V.type}</p>
+    <div>
+          Price: {V.price}
+    </div>
 
-    <p>Capacity: {V.capacity}</p>
+    <div> 
+          Status: {V.status}
+    </div>
+    <div>
+          Address: {V.address}
+    </div>
 
-    <p>Price: {V.price}</p>
-
-    <p>Status: {V.status}</p>
-
-    <p>Description: {V.description}</p>
-
-    <p>Address: {V.address}</p>
-      
+    <div className="mx-80 border-t border-gray-300 text-justify bg-gray-300 text-black rounded-md">
+          <p className="text-justify px-4 py-4"> {V.description} </p>
+    </div>
+    
     </div>
   );
 }
