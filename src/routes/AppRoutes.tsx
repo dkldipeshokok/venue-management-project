@@ -9,8 +9,10 @@ import Update from "@/pages/customers/update"
 import Venue from "@/pages/venue/venue"
 import CreateVenue from "@/pages/venue/create"
 import UpdateVenue from "@/pages/venue/edit"
+import ViewVenue from "@/pages/venue/view"
 
 import { Toaster } from "sonner"
+
 
 
 function AppRoutes(){
@@ -29,6 +31,7 @@ function AppRoutes(){
             <Route path="/venue" element={<Venue />} />
             <Route path="/venue/create" element={<CreateVenue/>} />
             <Route path="/venue/edit/:id" element={<UpdateVenue/>} />
+            <Route path="/venue/view/:id" element={<ViewVenue/>} />
             </Route>
             
         </Routes>
