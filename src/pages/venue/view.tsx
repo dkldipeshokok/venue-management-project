@@ -4,6 +4,7 @@ import type { VenueValues } from "@/schemas/venue.";
 
 function VenueView() {
   const { id } = useParams<{ id: string }>();
+  const [Image, setImage] = useState(false);
 
   const [V, setV] = useState<VenueValues | null>(null);
 
@@ -24,44 +25,45 @@ function VenueView() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 space-y-5">
-          <h1>Venue Details</h1>
+    <div className="flex flex-col items-center justify-center p-4 space-y-7">
+          <h1 className="text-2xl font-bold">Venue Details</h1>
 
     <div>
-          <img  src={`/${V.image}`} />
+          <img className="w-100 h-auto object-cover hover:cursor-pointer rounded-md"  src={V.image} onClick={() => {setImage(true)}}/>
     </div>
   
-    <div>
+    <div className="bg-gray-300 text-black rounded-md px-4 py-4">
           {V.id}
     </div>
 
-    <div>
-          {V.name}
+    <div className="space-x-6 text-black flex flex-col md:flex-row items-center justify-center">
+          <div className="font-semibold px-2 py-2 bg-gray-200 rounded-md">{V.name}</div>
+          <div className="font-semibold px-2 py-2 bg-gray-200 rounded-md">{V.type}</div>
+          <div className="font-semibold px-2 py-2 bg-gray-200 rounded-md">{V.address}</div>
     </div>
 
-    <div>
-          Type: {V.type}
-    </div>
-
-    <div>
-          Capacity: {V.capacity}
-    </div>
-
-    <div>
-          Price: {V.price}
-    </div>
-
-    <div> 
-          Status: {V.status}
-    </div>
-    <div>
-          Address: {V.address}
+    <div className="space-x-6 text-black flex flex-col md:flex-row items-center justify-center">
+          <div className=" px-2 py-2 bg-gray-200 rounded-md">Capacity: {V.capacity}</div>
+          <div className=" px-2 py-2 bg-gray-200 rounded-md">Price: {V.price}</div>
+          <div className=" px-2 py-2 bg-gray-200 rounded-md">Status: {V.status}</div>
     </div>
 
     <div className="mx-80 border-t border-gray-300 text-justify bg-gray-300 text-black rounded-md">
           <p className="text-justify px-4 py-4"> {V.description} </p>
     </div>
-    
+      {Image && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onClick={() => setImage(false)}>  
+          <img  src={V.image}  alt={V.name} className="max-h-[90vh] max-w-[90vw] object-contain"
+          />
+
+          <button
+            className="absolute top-5 right-5 text-3xl text-white"
+            onClick={() => setImage(false)}
+          >
+            ✕
+          </button>
+        </div>
+      )}
     </div>
   );
 }

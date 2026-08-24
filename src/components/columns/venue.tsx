@@ -9,11 +9,6 @@ const venueCol = (DeleteVenue: (id: string) => void): ColumnDef<VenueData>[] => 
         accessorKey: "id",
         header: "Code"
     },
-    
-    {
-        accessorKey: "image",
-        header: "Image"
-    },
     {
         accessorKey: "name",
         header: "Name"  
