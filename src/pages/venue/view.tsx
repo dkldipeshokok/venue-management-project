@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import type { VenueValues } from "@/schemas/venue.";
 
 function VenueView() {
+  const nav = useNavigate();
+
   const { id } = useParams<{ id: string }>();
   const [Image, setImage] = useState(false);
 
@@ -25,6 +27,15 @@ function VenueView() {
   }
 
   return (
+    <div>
+      <div>
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded-md m-4"
+          onClick={() => nav("/venue")}
+        >
+          Back
+        </button>
+      </div>
     <div className="flex flex-col items-center justify-center p-4 space-y-7">
           <h1 className="text-2xl font-bold">Venue Details</h1>
 
@@ -53,8 +64,8 @@ function VenueView() {
     </div>
       {Image && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onClick={() => setImage(false)}>  
-          <img  src={V.image}  alt={V.name} className="max-h-[90vh] max-w-[90vw] object-contain"
-          />
+          <img  src={V.image}  alt={V.name} className="w-full h-full object-contain" />
+      
 
           <button
             className="absolute top-5 right-5 text-3xl text-white"
@@ -64,6 +75,7 @@ function VenueView() {
           </button>
         </div>
       )}
+    </div>
     </div>
   );
 }
