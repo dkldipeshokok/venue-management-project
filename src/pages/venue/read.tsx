@@ -40,10 +40,10 @@ function VenueView() {
           <h1 className="text-2xl font-bold">Venue Details</h1>
 
     <div>
-          <img className="w-100 h-auto object-cover hover:cursor-pointer rounded-md"  src={V.image} onClick={() => {setImage(true)}}/>
+          <img className="w-100 h-auto object-cover hover:cursor-pointer rounded-md items-center justify-center"  src={V.image} onClick={() => {setImage(true)}}/>
     </div>
   
-    <div className="bg-gray-300 text-black rounded-md px-4 py-4">
+    <div className="bg-gray-300 text-black rounded-md px-4 py-4 items-center justify-center">
           {V.id}
     </div>
 
@@ -59,7 +59,7 @@ function VenueView() {
           <div className=" px-2 py-2 bg-gray-200 rounded-md">Status: {V.status}</div>
     </div>
 
-    <div className="mx-80 border-t border-gray-300 text-justify bg-gray-300 text-black rounded-md">
+    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 border-t border-gray-300 text-justify bg-gray-300 text-black rounded-md">
           <p className="text-justify px-4 py-4"> {V.description} </p>
     </div>
       {Image && (
