@@ -9,7 +9,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@Components/index";
-import { ChevronRight, Home, PersonStandingIcon } from "lucide-react";
+import { Book, ChevronRight, Home, PersonStandingIcon } from "lucide-react";
 import React, { useCallback, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -58,6 +58,11 @@ export function AppSidebar() {
         title: "Venue Management",
         url: "/venue",
         icon: Home,
+      },
+      {
+        title: "Booking",
+        url: "/booking",
+        icon: Book
       }
     ],
     [],

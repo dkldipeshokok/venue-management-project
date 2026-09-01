@@ -10,6 +10,11 @@ import Venue from "@/pages/venue/venue"
 import CreateVenue from "@/pages/venue/create"
 import UpdateVenue from "@/pages/venue/edit"
 
+import Booking from "@/pages/booking/booking"
+import CreateBooking from "@/pages/booking/create"
+import UpdateBooking from "@/pages/booking/update"
+import ReadBooking from "@/pages/booking/read"
+
 import { Toaster } from "sonner"
 
 
@@ -29,6 +34,11 @@ function AppRoutes(){
             <Route path="/venue" element={<Venue />} />
             <Route path="/venue/create" element={<CreateVenue/>} />
             <Route path="/venue/edit/:id" element={<UpdateVenue/>} />
+
+            <Route path="/booking" element={<Booking />} />
+            <Route path="/booking/create" element={<CreateBooking />} />
+            <Route path="/booking/update/:id" element={<UpdateBooking />} />
+            <Route path="/booking/read/:id" element={<ReadBooking />} />
             </Route>
             
         </Routes>

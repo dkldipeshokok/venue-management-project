@@ -313,3 +313,21 @@ export type VenueData = {
   capacity: number;
   status: "Active" | "Inactive";
 }
+export type BookingData = {
+  id : string;
+  customer : string;
+  venue : string;
+  type : string;
+  package : string;
+  bookby : string;
+  bookfrom : string;
+  bookto : string;
+  guests : number;
+  price : string;
+  food : number;
+  discount: string;
+  total : string;
+  advance : string;
+  due : string;
+  status: "Active" | "Inactive";
+}
