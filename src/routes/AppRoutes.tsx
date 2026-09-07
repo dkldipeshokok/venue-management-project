@@ -9,6 +9,7 @@ import Update from "@/pages/customers/update"
 import Venue from "@/pages/venue/venue"
 import CreateVenue from "@/pages/venue/create"
 import UpdateVenue from "@/pages/venue/edit"
+import Login from "@/pages/login/login"
 
 import { Toaster } from "sonner"
 
@@ -18,8 +19,8 @@ function AppRoutes(){
         <BrowserRouter>
         <Toaster />
         <Routes>
+            <Route path="/" element={<Login />} />
             <Route element={<Layout />}>
-            <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/customer" element={<Customers />} />
             <Route path="/customer/create" element={<Create/>} />
