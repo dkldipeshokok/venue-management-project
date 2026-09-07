@@ -322,12 +322,12 @@ export type BookingData = {
   bookby : string;
   bookfrom : string;
   bookto : string;
-  guests : number;
-  price : string;
+  guest : number;
+  price : number;
   food : number;
-  discount: string;
-  total : string;
-  advance : string;
-  due : string;
-  status: "Active" | "Inactive";
+  discount: number;
+  total : number;
+  advance : number;
+  due : number;
+  status:  "Pending" | "Confirmed" | "Completed" | "Cancelled";
 }
