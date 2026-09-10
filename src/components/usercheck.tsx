@@ -1,21 +1,17 @@
+import { Navigate, Outlet } from "react-router-dom";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 function UserCheck() {
-    const u=localStorage.getItem("CurrentUser");
-    const nav = useNavigate();
-    useEffect(() => {
-        if (!u) {
-            
-            toast.error("Please login first!!");
+    const u = localStorage.getItem("CurrentUser");
 
-            setTimeout(() => {
-                nav("/");
-            }, 2000);
-        }
-    }, [u, nav]);
+    if (!u) {
+        toast.error("Please login first!!");
+        return <Navigate to="/" replace />;
+    }
 
-    return( null );
+    return (
+        <Outlet />
+    );
 }
+
 export default UserCheck;

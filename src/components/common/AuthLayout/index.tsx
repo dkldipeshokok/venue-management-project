@@ -1,7 +1,6 @@
 import { useLogout } from "@/hooks/useLogout";
 import { ThemeToggle } from "@Components/common/ThemeToggle";
 import { AppSidebar } from "@Components/HOC/AppSidebar";
-import UserCheck from "@/components/usercheck";
 import {
   Avatar,
   AvatarFallback,
@@ -105,7 +104,6 @@ export default function Layout() {
             </div>
           </div>
           <div className="p-8">
-            <UserCheck />
             <Outlet />
           </div>
         </main>
