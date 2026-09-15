@@ -2,25 +2,17 @@ import type { FieldConfig } from "@/types/types";
 
 type options = {
     customer: {value: string, label: string}[];
-    user: {value: string, label: string}[];
     venue: {value: string, label: string}[];
 
 }
 
-const bookingFields = ({customer, user, venue}: options)  : FieldConfig[] => [
+const bookingFields = ({customer, venue}: options)  : FieldConfig[] => [
     {
         name: "customer",
         label: "Customer",
         type: "select",
         placeholder: "Select Customer",
         options: customer
-    },
-    {
-        name: "bookby",
-        label: "Booked By",
-        type: "select",
-        placeholder: "Enter Booked By Name",
-        options: user
     },
     {
         name: "venue",

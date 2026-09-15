@@ -7,9 +7,6 @@ export const bookingSchema = yup.object({
     customer: yup
         .string()
         .required(),
-    bookby: yup
-        .string()
-        .required(),
     venue: yup
         .string()
         .required(),
@@ -24,7 +21,7 @@ export const bookingSchema = yup.object({
         .required(),
     bookto: yup
         .string()
-        .optional(),
+        .required(),
     guest: yup
         .number()
         .required(),
@@ -36,7 +33,7 @@ export const bookingSchema = yup.object({
         .required(),
     discount: yup
         .number()
-        .optional(),
+        .required(),
     total: yup
         .number()
         .required(),
