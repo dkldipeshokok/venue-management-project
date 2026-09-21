@@ -9,7 +9,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@Components/index";
-import { Book, ChevronRight, Home, PersonStandingIcon } from "lucide-react";
+import { Book, ChevronRight, Home, PersonStandingIcon, Menu, ArrowRight } from "lucide-react";
 import React, { useCallback, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -63,6 +63,33 @@ export function AppSidebar() {
         title: "Booking",
         url: "/booking",
         icon: Book
+      },
+      {
+        title: "Menu Management",
+        url: "/menu",
+        icon: Menu,
+        dropdown: [
+          {
+            title: "Menu Categories",
+            url: "/menu/categories",
+            icon: ArrowRight,
+          },
+          {
+            title: "Menu Sub-Categories",
+            url: "/menu/subcategories",
+            icon: ArrowRight,
+          },
+          {
+            title: "Menu Items",
+            url: "/menu/items",
+            icon: ArrowRight,
+          },
+          {
+            title: "Menu Packages",
+            url: "/menu/packages",
+            icon: ArrowRight,
+          }
+        ]
       }
     ],
     [],

@@ -15,6 +15,23 @@ import CreateBooking from "@/pages/booking/create"
 import UpdateBooking from "@/pages/booking/update"
 import ReadBooking from "@/pages/booking/read"
 
+import Category from "@/pages/menu/categories/categories"
+import CreateCategory from "@/pages/menu/categories/create"
+import UpdateCategory from "@/pages/menu/categories/update"
+
+import SubCategory from "@/pages/menu/subcategories/subcategories"
+import CreateSubCategory from "@/pages/menu/subcategories/create"
+import UpdateSubCategory from "@/pages/menu/subcategories/update"
+
+import Item from "@/pages/menu/items/items"
+import CreateItem from "@/pages/menu/items/create"
+import UpdateItem from "@/pages/menu/items/update"
+
+import Package from "@/pages/menu/packages/packages"
+import CreatePackage from "@/pages/menu/packages/create"
+import UpdatePackage from "@/pages/menu/packages/update"
+
+
 import { Toaster } from "sonner"
 
 
@@ -39,6 +56,23 @@ function AppRoutes(){
             <Route path="/booking/create" element={<CreateBooking />} />
             <Route path="/booking/update/:id" element={<UpdateBooking />} />
             <Route path="/booking/read/:id" element={<ReadBooking />} />
+
+            <Route path="/menu/categories" element={<Category />} />
+            <Route path="/menu/categories/create" element={<CreateCategory />} />
+            <Route path="/menu/categories/update/:id" element={<UpdateCategory />} />
+
+            <Route path="/menu/subcategories" element={<SubCategory />} />
+            <Route path="/menu/subcategories/create" element={<CreateSubCategory />} />
+            <Route path="/menu/subcategories/update/:id" element={<UpdateSubCategory />} />
+
+            <Route path="/menu/items" element={<Item />} />
+            <Route path="/menu/items/create" element={<CreateItem />} />
+            <Route path="/menu/items/update/:id" element={<UpdateItem />} />
+
+            <Route path="/menu/packages" element={<Package />} />
+            <Route path="/menu/packages/create" element={<CreatePackage />} />
+            <Route path="/menu/packages/update/:id" element={<UpdatePackage />} />
+
             </Route>
             
         </Routes>

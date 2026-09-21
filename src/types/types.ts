@@ -331,3 +331,15 @@ export type BookingData = {
   due : number;
   status:  "Pending" | "Confirmed" | "Completed" | "Cancelled";
 }
+export type CategoryData = {
+  id: string;
+  name: string;
+  subcategories: number;
+  status: "Active" | "Inactive";
+}
+export type SubCategoryData = {
+  id: string;
+  name: string;
+  category: string;
+  status: "Active" | "Inactive";
+}
