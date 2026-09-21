@@ -5,12 +5,30 @@ import {SquarePen, Trash2} from "lucide-react";
 
 const subcategoryCol = (DeleteSubCategory: (id: string) => void): ColumnDef<SubCategoryData>[] => [
     {
+        accessorKey: "id",
+        header : "Code"
+    },
+    {
         accessorKey: "name",
         header: "Name"
     },
     {
         accessorKey: "category",
-        header: "Category"
+        header: "Category",
+        cell : ({row}) => {
+            const cid = row.original.category;
+            const storedData = localStorage.getItem("categories");
+
+            if(!storedData){
+                return cid;
+            }
+
+            const CAT = JSON.parse(storedData);
+
+            const C = CAT.find( (i: {id:string, name: string}) => String(i.id) === String(cid) );
+
+            return C ? C.name : C.id;
+        }
     },
     {
         accessorKey: "status",

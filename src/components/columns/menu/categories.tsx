@@ -35,7 +35,7 @@ const categoryCol = (DeleteCategory: (id: string) => void): ColumnDef<CategoryDa
                     <Link to={`/menu/categories/update/${id}`} className="bg-orange-500 text-white hover:scale-110 cursor-pointer px-2 py-2 rounded-md"><SquarePen /> </Link>
                     <button className="bg-red-500 px-2 py-2 text-white hover:scale-110 cursor-pointer rounded-md" 
                         onClick={() => {
-                            const ask = window.confirm("Are you sure you want to delete this category?");
+                            const ask = window.confirm("Are you sure you want to delete this category? Doing so will also delete its subcategories..");
                         if(ask){
                             DeleteCategory(id)
                         }

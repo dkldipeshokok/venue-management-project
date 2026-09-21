@@ -22,6 +22,23 @@ function MenuCategories() {
     );
     localStorage.setItem("categories", JSON.stringify(updatedCategory));
     setC(updatedCategory);
+
+
+
+    const storedSC = localStorage.getItem("subcategories");
+
+    if (storedSC){
+      const SC = JSON.parse(storedSC);
+
+      const updatedSC = SC.filter( ( i: { category : string } ) => String(i.category) !== id );
+
+      localStorage.setItem("subcategories", JSON.stringify(updatedSC));
+    }
+
+
+
+
+
     toast.success("Category Deleted Successfully");
   }
 
