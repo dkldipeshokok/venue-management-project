@@ -251,7 +251,7 @@ export function DataTables({
           }`}
         >
           <Input
-            placeholder="Search Customers..."
+            placeholder="Search.."
             value={inputValue}
             onChange={handleInputChange}
             className={`max-w-sm ${searchHide ? "hidden" : ""} ${

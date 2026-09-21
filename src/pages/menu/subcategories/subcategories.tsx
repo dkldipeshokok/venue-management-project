@@ -6,13 +6,19 @@ import { useEffect, useState } from "react";
 import {toast} from "sonner"
 
 function MenuSubCategories() {
-  const [C, setC] = useState<SubCategoryValues[]>([]);
+  const [SC, setSC] = useState<SubCategoryValues[]>([]);
+  const [C, setC] = useState<{id: string, name: string}[]>([]);
 
 
   useEffect(() => {
-    const storedData = localStorage.getItem("subcategories");
-    if (storedData) {
-      setC(JSON.parse(storedData));
+    const storedSC = localStorage.getItem("subcategories");
+    if (storedSC) {
+      setSC(JSON.parse(storedSC));
+    }
+
+    const storedC = localStorage.getItem("categories");
+    if(storedC) {
+      setC(JSON.parse(storedC));
     }
   }, []);
 
@@ -21,7 +27,7 @@ function MenuSubCategories() {
 
 
   const DeleteSubCategory = (id: string) => {
-    const subcategory = C.find(
+    const subcategory = SC.find(
         (item) => String(item.id) === id
     );
 
@@ -29,12 +35,12 @@ function MenuSubCategories() {
         return;
     }
 
-    const updatedSubCategory = C.filter(
+    const updatedSubCategory = SC.filter(
         (item) => String(item.id) !== id
     );
 
     localStorage.setItem("subcategories", JSON.stringify(updatedSubCategory));
-    setC(updatedSubCategory);
+    setSC(updatedSubCategory);
 
     const storedCategory = localStorage.getItem("categories");
 
@@ -63,7 +69,17 @@ function MenuSubCategories() {
         createPath="/menu/subcategories/create"
         createLabel="Add Sub-Category"
       />
-      <DataTables columns={subcategoryCol(DeleteSubCategory)} data = {C} />
+
+      {C.map((category) => {
+        const CATSC = SC.filter( ( i ) => String(i.category) === String(category.id) );
+        return(
+          <div key={category.id} className="border border-gray-200 rounded-lg mb-8">
+              <h2 className="text-xl font-semibold mb-3 bg-green-500 px-3 py-3 rounded-md">{category.name}</h2>
+              <DataTables columns={subcategoryCol(DeleteSubCategory)} data = {CATSC} searchHide = {true}  />
+          </div>
+
+        )
+      } )}
     </div>
   );
 }
