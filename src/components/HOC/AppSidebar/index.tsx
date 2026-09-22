@@ -9,7 +9,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@Components/index";
-import { ChevronRight, Home, PersonStandingIcon } from "lucide-react";
+import { ChevronRight, Home, User, Users } from "lucide-react";
 import React, { useCallback, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -52,13 +52,19 @@ export function AppSidebar() {
       {
         title: "Customers",
         url: "/customer",
-        icon: PersonStandingIcon,
+        icon: User,
       },
       {
         title: "Venue Management",
         url: "/venue",
         icon: Home,
+      },
+      {
+        title: "User Management",
+        url: "/user",
+        icon: Users,
       }
+
     ],
     [],
   );
