@@ -18,13 +18,17 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 // import { Container } from "@/components/common/container";
 
 export default function Layout() {
+
+  const u = JSON.parse(localStorage.getItem("CurrentUser") || "null");
+
   const navigate = useNavigate();
   const { logout, isLoading } = useLogout();
 
   async function logoutUser(): Promise<void> {
     try {
       await logout();
-      navigate("/login");
+      localStorage.removeItem("CurrentUser");
+      navigate("/");
     } catch (error) { }
   }
 
@@ -47,42 +51,35 @@ export default function Layout() {
                     //   className="object-cover aspect-square"
                     />
                     <AvatarFallback>
-                      {/* 
-                      {user?.name ? (
+                      
+                      {u?.name ? (
                         <span className="text-primary">
-                          {user?.name.split(" ")[0][0]?.toUpperCase() || "U"}
-                          {user?.name.split(" ")[1]?.[0]?.toUpperCase() || ""}
+                          {u?.name.split(" ")[0][0]?.toUpperCase() || "U"}
+                          {u?.name.split(" ")[1]?.[0]?.toUpperCase() || ""}
                         </span>
                       ) : (
                         "U"
-                      )} */}
-                      JD
+                      )} 
+                    
                     </AvatarFallback>
                   </Avatar>
 
                   <section className="flex flex-col text-xs ">
                     <span className={`font-semibold text-left`}>
-                      {/*                       
-                      {user?.name}{" "}
-                       */}
-                      John Doe
+                      {u?.name}{" "}
                     </span>
-                    <span className="text-left capitalize text-accent">
-                      {/*                       
+                    <span className="text-left capitalize text-accent text-red-500">                 
                       {" "}
-                      {user?.role}
-                       */}
-                      Author
+                      {u?.role}
                     </span>
                   </section>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuLabel className="capitalize">
-                    {/*                     
+                                     
                     {" "}
-                    {user?.name || "setting"}{" "}
-                     */}
-                    John
+                    {u?.name || "setting"}{" "}
+                     
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
