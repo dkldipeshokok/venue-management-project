@@ -343,3 +343,11 @@ export type SubCategoryData = {
   category: string;
   status: "Active" | "Inactive";
 }
+export type ItemData = {
+  id: string;
+  name: string;
+  category: string;
+  sub: string;
+  unit: "Plate" | "Person" | "Bottle" | "Glass" | "Piece" | "Package" | "Hour" | "Day" | "Set";
+  status: "Active" | "Inactive";
+}

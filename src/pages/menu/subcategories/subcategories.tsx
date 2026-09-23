@@ -77,7 +77,6 @@ function MenuSubCategories() {
               <h2 className="text-xl font-semibold mb-3 bg-green-500 px-3 py-3 rounded-md">{category.name}</h2>
               <DataTables columns={subcategoryCol(DeleteSubCategory)} data = {CATSC} searchHide = {true}  />
           </div>
-
         )
       } )}
     </div>
