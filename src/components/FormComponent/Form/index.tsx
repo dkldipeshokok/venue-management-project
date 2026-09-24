@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import type { DefaultValues, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/Form';
-import type { FieldConfig } from '@/types/types';
+import type { FieldConfig, FieldOption } from '@/types/types';
 import { TextField } from '@/components/FormComponent/TextField';
 import { TextAreaField } from '@/components/FormComponent/TextAreaField';
 import { SelectField } from '@/components/FormComponent/SelectField';
@@ -21,6 +21,7 @@ import { SelectField } from '@/components/FormComponent/SelectField';
 import { MultiSelectField } from '@/components/FormComponent/MultiSelectField';
 import { CheckboxField } from '@/components/FormComponent/CheckboxField';
 import { EditorField } from '@/components/FormComponent/EditorField';
+import { useEffect } from 'react';
 
 export type FormMode = 'create' | 'update';
 
@@ -28,6 +29,7 @@ export interface DynamicFormProps<T extends FieldValues> {
   fields: FieldConfig[];
   schema: any; // Yup schema
   defaultValues: DefaultValues<T>;
+  onValuesChange?: (values: any) => void;
   onSubmit: (data: T) => void;
   onCancel?: () => void;
   /** The name of the feature / entity, e.g. "Post", "User", "Event".
@@ -45,6 +47,7 @@ export function DynamicForm<T extends FieldValues>({
   fields,
   schema,
   defaultValues,
+  onValuesChange,
   onSubmit,
   onCancel,
   featureName,
@@ -57,6 +60,21 @@ export function DynamicForm<T extends FieldValues>({
     resolver: yupResolver(schema) as any,
     defaultValues,
   });
+
+  const watchedValues = useWatch({control : form.control});
+  useEffect(() => {
+    if(onValuesChange){
+      onValuesChange(watchedValues);
+    }
+  }, [onValuesChange, watchedValues]);
+
+  const optionsType = (fieldConfig: FieldConfig) => {
+    if(typeof fieldConfig.options === 'function'){
+      const getOptions = fieldConfig.options as (values : any ) => FieldOption[];
+      return getOptions(watchedValues) || [];
+    }
+    return fieldConfig.options as FieldOption[] || [];
+  };
 
   // Derive a readable title from mode + featureName
   const formTitle = featureName
@@ -77,13 +95,15 @@ export function DynamicForm<T extends FieldValues>({
       : 'Save Information');
 
   const renderField = (fieldConfig: FieldConfig, field: any) => {
+    const options = optionsType(fieldConfig);
+    
     switch (fieldConfig.type) {
       case 'select':
         return (
           <FormControl>
             <SelectField
               field={field}
-              options={fieldConfig.options || []}
+              options={options}
               placeholder={fieldConfig.placeholder}
             />
           </FormControl>
@@ -94,7 +114,7 @@ export function DynamicForm<T extends FieldValues>({
           <FormControl>
             <MultiSelectField
               field={field}
-              options={fieldConfig.options || []}
+              options={options}
               placeholder={fieldConfig.placeholder}
             />
           </FormControl>
@@ -104,7 +124,7 @@ export function DynamicForm<T extends FieldValues>({
           <FormControl>
             <CheckboxField
               field={field}
-              options={fieldConfig.options || []}
+              options={options}
             />
           </FormControl>
         );
@@ -133,6 +153,7 @@ export function DynamicForm<T extends FieldValues>({
     ['editor', 'textarea', 'checkbox', 'multiselect'].includes(type);
 
   const goBack = () => window.history.back();
+
 
   return (
     <div className="w-full">

@@ -11,12 +11,14 @@ const itemField: FieldConfig[] = [
         name : "category",
         label : "Category",
         type : "select",
+        placeholder : "Select a Category",
         options : []
     },
     {
         name : "sub",
         label : "Sub Category",
         type : "select",
+        placeholder : "First select a Category",
         options : []
     },
     {

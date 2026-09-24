@@ -9,7 +9,7 @@ import { toast } from "sonner";
 function CreateMenuSubCategories() {
     const navigate = useNavigate();
 
-    const [CAToptions, setCAToptions] = useState<FieldConfig[]>(SubCategoryFields);
+    const [SCFields, setSCFields] = useState<FieldConfig[]>(SubCategoryFields);
 
     useEffect( () => {
         const StoredData = localStorage.getItem("categories");
@@ -25,7 +25,7 @@ function CreateMenuSubCategories() {
             label: item.name
         }));
 
-        setCAToptions(
+        setSCFields(
             SubCategoryFields.map((field) =>
                 field.name === "category" ? {...field, options: categoryOptions} : field
             )
@@ -80,7 +80,7 @@ function CreateMenuSubCategories() {
 
     return (
         <DynamicForm<SubCategoryValues>
-            fields={CAToptions}
+            fields={SCFields}
             schema={SubCategorySchema}
             defaultValues={{
                 name: "",

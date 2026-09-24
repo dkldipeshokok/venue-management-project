@@ -291,7 +291,7 @@ export interface FieldConfig {
   type: FieldType;
   placeholder?: string;
   description?: string;
-  options?: FieldOption[]; // For select type
+  options?: FieldOption[] | ((formValues: Record<string, any>) => FieldOption[]); // For select type
 }
 
 export type Customer = {
