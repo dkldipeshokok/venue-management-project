@@ -351,3 +351,11 @@ export type ItemData = {
   unit: "Plate" | "Person" | "Bottle" | "Glass" | "Piece" | "Package" | "Hour" | "Day" | "Set";
   status: "Active" | "Inactive";
 }
+export type PackageData = {
+  id: string;
+  name: string;
+  price: number;
+  status: "Active" | "Inactive";
+  description: string;
+  menuItems: string[];
+}

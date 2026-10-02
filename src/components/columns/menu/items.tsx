@@ -3,7 +3,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { Link } from "react-router-dom";
 import {SquarePen, Trash2} from "lucide-react";
 
-const itemCol = (): ColumnDef<ItemData>[] => [
+const itemCol = (DeleteItem: (id: string) => void): ColumnDef<ItemData>[] => [
 
     {
         accessorKey: "id",
@@ -41,7 +41,7 @@ const itemCol = (): ColumnDef<ItemData>[] => [
                         onClick={() => {
                             const ask = window.confirm("Are you sure you want to delete this subcategory?");
                         if(ask){
-                           
+                           DeleteItem(id);
                         }
                     }
                         }> <Trash2 /> </button>

@@ -74,7 +74,8 @@ function CreateMenuItems() {
             defaultValues={{
                 name: "",
                 category:"",
-                sub: ""
+                sub: "",
+                status:"Active"
             }
             }
             onSubmit={OnSubmit}

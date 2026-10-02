@@ -30,6 +30,7 @@ import UpdateItem from "@/pages/menu/items/update"
 import Package from "@/pages/menu/packages/packages"
 import CreatePackage from "@/pages/menu/packages/create"
 import UpdatePackage from "@/pages/menu/packages/update"
+import ReadPackage from "@/pages/menu/packages/read"
 
 
 import { Toaster } from "sonner"
@@ -70,6 +71,7 @@ function AppRoutes(){
             <Route path="/menu/items/update/:id" element={<UpdateItem />} />
 
             <Route path="/menu/packages" element={<Package />} />
+            <Route path="/menu/packages/read/:id" element={<ReadPackage />} />
             <Route path="/menu/packages/create" element={<CreatePackage />} />
             <Route path="/menu/packages/update/:id" element={<UpdatePackage />} />
 
