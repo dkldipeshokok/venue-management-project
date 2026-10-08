@@ -359,3 +359,15 @@ export type PackageData = {
   description: string;
   menuItems: string[];
 }
+
+export type User = {
+    id: string;
+    name: string;
+    email: string;
+    phone: string;
+    role: "SuperAdmin" | "Customer" | "Employee";
+    status: "Active" | "Inactive";
+    password : string;
+    Cpassword : string;
+    createdAt: string;
+}

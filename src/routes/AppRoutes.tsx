@@ -8,7 +8,12 @@ import Update from "@/pages/customers/update"
 
 import Venue from "@/pages/venue/venue"
 import CreateVenue from "@/pages/venue/create"
-import UpdateVenue from "@/pages/venue/edit"
+import UpdateVenue from "@/pages/venue/update"
+import ViewVenue from "@/pages/venue/read"
+
+import User from "@/pages/user/user"
+import CreateUser from "@/pages/user/create"
+import UpdateUser from "@/pages/user/update"
 
 import Booking from "@/pages/booking/booking"
 import CreateBooking from "@/pages/booking/create"
@@ -34,6 +39,7 @@ import ReadPackage from "@/pages/menu/packages/read"
 
 
 import { Toaster } from "sonner"
+
 
 
 function AppRoutes(){
@@ -75,6 +81,15 @@ function AppRoutes(){
             <Route path="/menu/packages/create" element={<CreatePackage />} />
             <Route path="/menu/packages/update/:id" element={<UpdatePackage />} />
 
+
+
+            <Route path="/user" element={<User />} />
+            <Route path="/user/create" element={<CreateUser/>} />
+            <Route path="/user/update/:id" element={<UpdateUser/>} />
+        
+
+            <Route path="/venue/update/:id" element={<UpdateVenue/>} />
+            <Route path="/venue/read/:id" element={<ViewVenue/>} />
             </Route>
             
         </Routes>

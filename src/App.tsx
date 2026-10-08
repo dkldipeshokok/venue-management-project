@@ -5,10 +5,9 @@ import AppRoutes from "./routes/AppRoutes"
 function App() {
 
   return (
-    <div className="min-h-screen bg-background text-foreground pb-12">
+    <div className="min-h-screen bg-background text-foreground">
         < AppRoutes />
     </div>
   )
 }
-
 export default App

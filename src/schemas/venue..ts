@@ -23,6 +23,12 @@ export const venueSchema = yup.object({
         .string()
         .oneOf(["Active","Inactive"],"Choose the status")
         .required(),
+    description: yup
+        .string()
+        .optional(),
+    address: yup
+        .string()
+        .required(),
 
 });
 
