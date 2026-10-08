@@ -1,31 +1,107 @@
-import { DataTables } from "@/components/TableComponent/Table";
-import bookingCol from "@/components/columns/booking";
-import PageHeader from "@/components/common/PageHeader";
-import { type BookingData } from "@/types/types";
-import {useEffect, useState} from "react";
+import { DynamicForm } from "@/components/FormComponent/Form";
+import bookingFields from "@/components/fields/booking";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { useEffect, useState } from "react";
+import type { BookingData, User, VenueData, Customer } from "@/types/types";
+import { bookingSchema, type BookingValues } from "@/schemas/booking";
+import type { packageValue } from "@/schemas/menu/package";
 
-function Booking(){
+function CreateBooking() {
+  const navigate = useNavigate();
 
-    const [B, setB] = useState<BookingData[]> ([]);
+  const [C, setC] = useState<Customer[]>([]);
+  const [V, setV] = useState<VenueData[]>([]);
+  const [P, setP] = useState<packageValue[]>([]);
+  const [U, setU] = useState<User | null>(null);
 
-    useEffect (() => {
-        const storedData = localStorage.getItem("bookings");
-        if(storedData){
-            setB(JSON.parse(storedData));
-        }
-    },[] );
+  useEffect(() => {
+    const storedC = localStorage.getItem("customers");
+    const storedV = localStorage.getItem("venues");
+    const storedP = localStorage.getItem("packages");
+    const storedU = localStorage.getItem("CurrentUser");
 
+    if (storedC) setC(JSON.parse(storedC));
+    if (storedV) setV(JSON.parse(storedV));
+    if (storedP) setP(JSON.parse(storedP));
+    if (storedU) setU(JSON.parse(storedU));
+  }, []);
 
-    return(
-        <div className="w-full p-6">
-            <PageHeader title="Bookings"
-                description="Manage venue Bookings"
-                createPath="/booking/create"
-                createLabel=" New Booking "
-            />
+  const customerOptions = C.map((customer) => ({ value: String(customer.id), label: customer.name,}));
 
-            <DataTables columns={bookingCol()} data = {B} />
-        </div>
-    )
+  const venueOptions = V.map((venue) => ({ value: String(venue.id), label: venue.name,}));
+
+  const packageOptions = P.map((pkg) => ({ value: String(pkg.id), label: `${pkg.name} (Rs. ${pkg.price})`,}));
+
+  function OnSubmit(data: BookingValues) {
+    if (!U) {
+      toast.error("Please login first!");
+      return;
+    }
+
+    const storedBookings = localStorage.getItem("bookings");
+    const bookings: BookingData[] = storedBookings ? JSON.parse(storedBookings) : [];
+
+    const newIDNum = bookings.reduce((highest, booking) => {
+      const match = String(booking.id ?? "").match(/^BK(\d+)$/);
+      const num = match ? Number(match[1]) : Number(booking.id) || 0;
+      return Math.max(highest, num);
+    }, 0);
+
+    const generatedId = `BK${String(newIDNum + 1).padStart(6, "0")}`;
+
+    const calculatedTotal =
+      data.total > 0 ? data.total : (Number(data.price) || 0) + (Number(data.food) || 0) - (Number(data.discount) || 0);
+
+    const calculatedDue = data.due !== undefined && data.due !== 0 ? data.due : calculatedTotal - (Number(data.advance) || 0);
+
+    const newBooking: BookingData = { ...data, id: generatedId, bookby: U.id, total: calculatedTotal, due: calculatedDue,
+    };
+
+    const updatedBookings = [...bookings, newBooking];
+    localStorage.setItem("bookings", JSON.stringify(updatedBookings));
+
+    toast.success("Booking saved successfully!");
+
+    setTimeout(() => {
+      navigate("/booking");
+    }, 900);
+  }
+
+  return (
+    <DynamicForm<BookingValues>
+      fields={bookingFields({
+        customer: customerOptions,
+        venue: venueOptions,
+        PKG: packageOptions,
+      })}
+      schema={bookingSchema}
+      defaultValues={{
+        id: "",
+        customer: "",
+        venue: "",
+        type: "",
+        package: "",
+        bookfrom: "",
+        bookto: "",
+        guest: 0,
+        price: 0,
+        food: 0,
+        discount: 0,
+        total: 0,
+        advance: 0,
+        due: 0,
+        status: "Pending",
+      }}
+      onSubmit={OnSubmit}
+      onCancel={() => navigate("/booking")}
+      featureName="Booking"
+      formDescription="Enter Booking Details"
+      mode="create"
+      submitButtonText="Save Booking"
+      cancelButtonText="Cancel"
+    />
+  );
 }
-export default Booking;
+
+export default CreateBooking;

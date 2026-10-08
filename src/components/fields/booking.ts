@@ -3,10 +3,10 @@ import type { FieldConfig } from "@/types/types";
 type options = {
     customer: {value: string, label: string}[];
     venue: {value: string, label: string}[];
-
+    PKG: {value: string, label: string}[];
 }
 
-const bookingFields = ({customer, venue}: options)  : FieldConfig[] => [
+const bookingFields = ({customer, venue, PKG}: options)  : FieldConfig[] => [
     {
         name: "customer",
         label: "Customer",
@@ -30,8 +30,9 @@ const bookingFields = ({customer, venue}: options)  : FieldConfig[] => [
     {
         name: "package",
         label: "Menu Packages",
-        type: "text",
-        placeholder: "Enter Menu Package"
+        type: "select",
+        placeholder: "Select Menu Package",
+        options: PKG
     },
     {
         name: "bookfrom",
