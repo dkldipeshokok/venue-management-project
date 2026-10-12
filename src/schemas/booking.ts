@@ -33,7 +33,9 @@ export const bookingSchema = yup.object({
         .required(),
     discount: yup
         .number()
-        .required(),
+        .min(0, "Discount cannot be less than 0%")
+        .max(100, "Discount cannot exceed 100%")
+        .required("Discount is required"),
     total: yup
         .number()
         .required(),

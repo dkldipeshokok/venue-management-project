@@ -66,9 +66,9 @@ const bookingFields = ({customer, venue, PKG}: options)  : FieldConfig[] => [
     },
     {
         name: "discount",
-        label: "Discount",
+        label: "Discount (%) ",
         type: "number",
-        placeholder: "Enter Discount Amount"
+        placeholder: "Enter Discount Percentage"
     },
     {
         name: "total",

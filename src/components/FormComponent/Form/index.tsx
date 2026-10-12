@@ -29,7 +29,7 @@ export interface DynamicFormProps<T extends FieldValues> {
   fields: FieldConfig[];
   schema: any; // Yup schema
   defaultValues: DefaultValues<T>;
-  onValuesChange?: (values: any) => void;
+  onValuesChange?: (values: any, setValue: (name: string, value: any)=> void ) => void;
   onSubmit: (data: T) => void;
   onCancel?: () => void;
   /** The name of the feature / entity, e.g. "Post", "User", "Event".
@@ -64,9 +64,9 @@ export function DynamicForm<T extends FieldValues>({
   const watchedValues = useWatch({control : form.control});
   useEffect(() => {
     if(onValuesChange){
-      onValuesChange(watchedValues);
+      onValuesChange(watchedValues, form.setValue);
     }
-  }, [onValuesChange, watchedValues]);
+  }, [onValuesChange, watchedValues, form.setValue]);
 
   const optionsType = (fieldConfig: FieldConfig) => {
     if(typeof fieldConfig.options === 'function'){

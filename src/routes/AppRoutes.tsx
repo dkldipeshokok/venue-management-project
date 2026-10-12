@@ -58,6 +58,8 @@ function AppRoutes(){
             <Route path="/venue" element={<Venue />} />
             <Route path="/venue/create" element={<CreateVenue/>} />
             <Route path="/venue/edit/:id" element={<UpdateVenue/>} />
+            <Route path="/venue/update/:id" element={<UpdateVenue/>} />
+            <Route path="/venue/read/:id" element={<ViewVenue/>} />
 
             <Route path="/booking" element={<Booking />} />
             <Route path="/booking/create" element={<CreateBooking />} />
@@ -88,8 +90,7 @@ function AppRoutes(){
             <Route path="/user/update/:id" element={<UpdateUser/>} />
         
 
-            <Route path="/venue/update/:id" element={<UpdateVenue/>} />
-            <Route path="/venue/read/:id" element={<ViewVenue/>} />
+            
             </Route>
             
         </Routes>

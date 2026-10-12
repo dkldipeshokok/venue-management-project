@@ -1,108 +1,131 @@
-import {DynamicForm} from "@/components/FormComponent/Form";
+import { DynamicForm } from "@/components/FormComponent/Form";
 import bookingFields from "@/components/fields/booking";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import type { BookingData, User, VenueData, Customer } from "@/types/types";
-import  {bookingSchema, type BookingValues} from "@/schemas/booking";
+import { bookingSchema, type BookingValues } from "@/schemas/booking";
+import type { packageValue } from "@/schemas/menu/package";
 
-function CreateBooking(){
-    const navigate = useNavigate();
+function CreateBooking() {
+  const navigate = useNavigate();
 
-    const [C, setC] = useState<Customer[]>([]);
-    const [V, setV] = useState<VenueData[]>([]);
-    const [U, setU] = useState<User | null>(null);
+  const [C, setC] = useState<Customer[]>([]);
+  const [V, setV] = useState<VenueData[]>([]);
+  const [P, setP] = useState<packageValue[]>([]);
+  const [U, setU] = useState<User | null>(null);
 
-    useEffect(() => {
-        const storedC = localStorage.getItem("customers");
-        const storedV = localStorage.getItem("venues");
-        const storedU = localStorage.getItem("CurrentUser");
+  useEffect(() => {
+    const storedC = localStorage.getItem("customers");
+    const storedV = localStorage.getItem("venues");
+    const storedP = localStorage.getItem("packages");
+    const storedU = localStorage.getItem("CurrentUser");
 
-        if (storedC){
-            setC(JSON.parse(storedC));
-        }
+    if (storedC) setC(JSON.parse(storedC));
+    if (storedV) setV(JSON.parse(storedV));
+    if (storedP) setP(JSON.parse(storedP));
+    if (storedU) setU(JSON.parse(storedU));
+  }, []);
 
-        if (storedV){
-            setV(JSON.parse(storedV));
-        }
 
-        if (storedU){
-            setU(JSON.parse(storedU));
-        }
-    }, []);
+  const customerOptions = C.map((customer) => ({ value: String(customer.id), label: customer.name,}));
 
-    const customerOptions = C.map((customer) => ({
-        value: customer.id,
-        label: customer.name
-    }));
+  const venueOptions = V.map((venue) => ({ value: String(venue.id), label: venue.name,}));
 
-    const venueOptions = V.map((venue) => ({
-        value: venue.id,
-        label: venue.name
-    }));
+  const packageOptions = P.map((pkg) => ({ value: String(pkg.id), label: `${pkg.name} (Rs. ${pkg.price})`,}));
 
-    function OnSubmit(data: BookingValues){
-        if (!U){
-            toast.error("Please login first!");
-            return;
-        }
-        const storedBookings = localStorage.getItem("bookings");
-        const bookings: BookingData[] = storedBookings ? JSON.parse(storedBookings) : [];
-
-        const newID = bookings.reduce((highest, booking) => {
-            const match = String(booking.id ?? "").match(/^BK(\d+)$/);
-            const num = match ? Number(match[1]) : Number(booking.id) || 0;
-            return Math.max(highest, num);
-        }, 0);
-
-        const newId = `BK${String(newID + 1).padStart(6, "0")}`;
-
-        const newBooking: BookingData = { ...data, id: newId, bookby: U.id };
-
-        const updatedBookings = [...bookings, newBooking];
-
-        localStorage.setItem("bookings", JSON.stringify(updatedBookings));
-
-        toast.success("Booking saved successfully!");
-
-        setTimeout(() => {
-            navigate("/booking");
-        }, 900);
+  function OnSubmit(data: BookingValues) {
+    if (!U) {
+      toast.error("Please login first!");
+      return;
     }
 
-    return(
-        <DynamicForm<BookingValues>
-            fields={bookingFields({
-                customer: customerOptions,
-                venue: venueOptions
-            })}
-            schema={bookingSchema}
-            defaultValues={{
-                id: "",
-                customer: "",
-                venue: "",
-                type: "",
-                package: "",
-                bookfrom: "",
-                bookto: "",
-                guest: 0,
-                price: 0,
-                food: 0,
-                discount: 0,
-                total: 0,
-                advance: 0,
-                due: 0,
-                status: "Pending"
-            }}
-            onSubmit={OnSubmit}
-            onCancel={() => navigate("/booking")}
-            featureName="Booking"
-            formDescription="Enter Booking Details"
-            mode="create"
-            submitButtonText="Save Booking"
-            cancelButtonText="Cancel"
-        />
-    )
+    const storedBookings = localStorage.getItem("bookings");
+    const bookings: BookingData[] = storedBookings ? JSON.parse(storedBookings) : [];
+
+    const newIDNum = bookings.reduce((highest, booking) => {
+      const match = String(booking.id ?? "").match(/^BK(\d+)$/);
+      const num = match ? Number(match[1]) : Number(booking.id) || 0;
+      return Math.max(highest, num);
+    }, 0);
+
+    const generatedId = `BK${String(newIDNum + 1).padStart(6, "0")}`;
+
+    const subtotal =  (Number(data.price) || 0) + (Number(data.food) || 0);
+    const discountAmount = (subtotal * (Number(data.discount) || 0)) / 100;
+    const calculatedTotal = subtotal - discountAmount;
+    const calculatedDue = calculatedTotal - (Number(data.advance) || 0);
+
+    const newBooking: BookingData = { ...data, id: generatedId, bookby: U.id, total: calculatedTotal, due: calculatedDue,
+    };
+
+    const updatedBookings = [...bookings, newBooking];
+    localStorage.setItem("bookings", JSON.stringify(updatedBookings));
+
+    toast.success("Booking saved successfully!");
+
+    setTimeout(() => {
+      navigate("/booking");
+    }, 900);
+  }
+
+  return (
+    <DynamicForm<BookingValues>
+      fields={bookingFields({
+        customer: customerOptions,
+        venue: venueOptions,
+        PKG: packageOptions,
+      })}
+      schema={bookingSchema}
+      defaultValues={{
+        id: "",
+        customer: "",
+        venue: "",
+        type: "",
+        package: "",
+        bookfrom: "",
+        bookto: "",
+        guest: 0,
+        price: 0,
+        food: 0,
+        discount: 0,
+        total: 0,
+        advance: 0,
+        due: 0,
+        status: "Pending",
+      }}
+      onValuesChange={(values, setValue)  => {
+          const selectedVenue = V.find( (venue) => String(venue.id) === String(values.venue));
+
+          const selectedPackage = P.find( (pkg) => String(pkg.id) === String(values.package) );
+
+          const price = selectedVenue ? Number(selectedVenue.price) || 0 : 0;
+
+          const food = selectedPackage ? Number(selectedPackage.price) || 0 : 0;
+          const discount = Number(values.discount) || 0;
+          const advance = Number(values.advance) || 0;
+
+          const subtotal = price + food;
+          const discountAmount = (subtotal * discount) / 100;
+          const total = subtotal - discountAmount;
+          const due = total - advance;
+
+          if (Number(values.price) !== price) setValue("price", price);
+          if (Number(values.food) !== food) setValue("food", food);
+          if (Number(values.total) !== total) setValue("total", total);
+          if (Number(values.due) !== due) setValue("due", due);
+
+        }
+      }
+      onSubmit={OnSubmit}
+      onCancel={() => navigate("/booking")}
+      featureName="Booking"
+      formDescription="Enter Booking Details"
+      mode="create"
+      submitButtonText="Save Booking"
+      cancelButtonText="Cancel"
+    />
+  );
 }
 
 export default CreateBooking;

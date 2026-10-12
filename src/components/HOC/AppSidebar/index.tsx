@@ -50,6 +50,11 @@ export function AppSidebar() {
         icon: Home,
       },
       {
+        title: "User Management",
+        url: "/user",
+        icon: Users,
+      },
+      {
         title: "Customers",
         url: "/customer",
         icon: User,
@@ -90,13 +95,7 @@ export function AppSidebar() {
             icon: ArrowRight,
           }
         ]
-      },
-      {
-        title: "User Management",
-        url: "/user",
-        icon: Users,
       }
-
     ],
     [],
   );
