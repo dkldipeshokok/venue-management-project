@@ -56,13 +56,15 @@ const bookingFields = ({customer, venue, PKG}: options)  : FieldConfig[] => [
         name: "price",
         label: "Base Price",
         type: "number",
-        placeholder: "Enter Base Price"
+        placeholder: "Enter Base Price",
+        disabled: true
     },
     {
         name: "food",
         label: "Food Package Amount",
         type: "number",
-        placeholder: "Enter Food Package Amount"
+        placeholder: "Enter Food Package Amount",
+        disabled: true
     },
     {
         name: "discount",
@@ -74,7 +76,8 @@ const bookingFields = ({customer, venue, PKG}: options)  : FieldConfig[] => [
         name: "total",
         label: "Total",
         type: "number",
-        placeholder: "Enter Total Amount"
+        placeholder: "Enter Total Amount",
+        disabled: true
     },
     {
         name: "advance",
@@ -86,7 +89,8 @@ const bookingFields = ({customer, venue, PKG}: options)  : FieldConfig[] => [
         name: "due",
         label: "Due",
         type: "number",
-        placeholder: "Enter Due Amount"
+        placeholder: "Enter Due Amount",
+        disabled: true
     },
     {
         name: "status",

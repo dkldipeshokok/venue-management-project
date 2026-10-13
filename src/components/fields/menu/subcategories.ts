@@ -11,6 +11,7 @@ const SubCategoryFields: FieldConfig[] = [
         name: "category",
         label: "Category",
         type: "select",
+        placeholder: "Select a category",
         options: [],
     },
     {

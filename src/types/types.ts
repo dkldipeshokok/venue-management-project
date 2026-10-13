@@ -292,6 +292,7 @@ export interface FieldConfig {
   placeholder?: string;
   description?: string;
   options?: FieldOption[] | ((formValues: Record<string, any>) => FieldOption[]); // For select type
+  disabled?: boolean;
 }
 
 export type Customer = {

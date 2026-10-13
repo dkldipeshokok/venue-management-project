@@ -25,6 +25,7 @@ const itemField: FieldConfig[] = [
         name : "unit",
         label : "Unit",
         type : "select",
+        placeholder : "Select a unit",
         options : [
             {value: "Plate", label: "Plate"},
             {value: "Person", label: "Person"},

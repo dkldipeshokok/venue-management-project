@@ -137,13 +137,13 @@ export function DynamicForm<T extends FieldValues>({
       case 'textarea':
         return (
           <FormControl>
-            <TextAreaField field={field} placeholder={fieldConfig.placeholder} />
+            <TextAreaField field={field} placeholder={fieldConfig.placeholder}  />
           </FormControl>
         );
       default:
         return (
           <FormControl>
-            <TextField field={field} placeholder={fieldConfig.placeholder} type={fieldConfig.type} />
+            <TextField field={field} placeholder={fieldConfig.placeholder} type={fieldConfig.type} disabled={fieldConfig.disabled} />
           </FormControl>
         );
     }

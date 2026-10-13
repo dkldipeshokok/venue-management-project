@@ -56,7 +56,7 @@ function CreateBooking() {
     const calculatedTotal = subtotal - discountAmount;
     const calculatedDue = calculatedTotal - (Number(data.advance) || 0);
 
-    const newBooking: BookingData = { ...data, id: generatedId, bookby: U.id, total: calculatedTotal, due: calculatedDue,
+    const newBooking: BookingData = { ...data, id: generatedId, bookby: U.name, total: calculatedTotal, due: calculatedDue,
     };
 
     const updatedBookings = [...bookings, newBooking];
