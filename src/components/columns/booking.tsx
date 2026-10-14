@@ -59,42 +59,6 @@ const bookingCol = (DeleteBooking: (id: string) => void) : ColumnDef<BookingData
       },
     },
     {
-        accessorKey : "bookfrom",
-        header : "Booked From"
-    },
-    {
-        accessorKey : "bookto",
-        header : "Booked To"
-    },
-    {
-        accessorKey : "guest",
-        header : "Guests"
-    },
-    {
-        accessorKey : "price",
-        header : "Base price"
-    },
-    {
-        accessorKey : "food",
-        header : "Food Package Amount"
-    },
-    {
-        accessorKey : "discount",
-        header : "Discount"
-    },
-    {
-        accessorKey : "total",
-        header : "Total",
-        cell: ({ row }) => {
-            const val = Number(row.getValue("total") || 0);
-            return <span>Rs. {val.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>;
-      },
-    },
-    {
-        accessorKey : "advance",
-        header : "Advance"
-    },
-    {
         accessorKey : "due",
         header : "Due",
         cell: ({ row }) => {

@@ -323,6 +323,7 @@ export type BookingData = {
   bookby : string;
   bookfrom : string;
   bookto : string;
+  shift: "Whole Day" | "Morning" | "Evening";
   guest : number;
   price : number;
   food : number;
@@ -331,6 +332,7 @@ export type BookingData = {
   advance : number;
   due : number;
   status:  "Pending" | "Confirmed" | "Completed" | "Cancelled";
+  description: string;
 }
 export type CategoryData = {
   id: string;

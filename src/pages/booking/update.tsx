@@ -75,6 +75,7 @@ function UpdateBooking() {
       id: B.id,
       bookby: B.bookby,
       total: calculatedTotal,
+      description: data.description ?? B.description ?? "",
       due: calculatedDue,
     };
 
@@ -117,9 +118,11 @@ function UpdateBooking() {
         advance: B.advance,
         due: B.due,
         status: B.status,
+        shift: B.shift,
+        description: B.description ?? "",
       }}
       onValuesChange={(values, setValue) => {
-        const selectedVenue = V.find(  (v) => String(v.id) === String(values.v) );
+        const selectedVenue = V.find(  (v) => String(v.id) === String(values.venue) );
         const selectedPackage = P.find( (pkg) => String(pkg.id) === String(values.package) );
 
         const price = selectedVenue ? Number(selectedVenue.price) || 0 : 0;

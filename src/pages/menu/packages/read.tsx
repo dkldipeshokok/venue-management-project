@@ -67,7 +67,7 @@ function ReadPackage() {
           onClick={() => nav("/menu/packages")}
           className="inline-flex items-center text-sm text-blue-600 hover:underline font-medium cursor-pointer"
         >
-          <ArrowLeft className="w-4 h-4 mr-1" /> Back to Packages
+          <ArrowLeft className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition cursor-pointer" /> Back to Packages
         </button>
       </div>
     );
@@ -77,17 +77,16 @@ function ReadPackage() {
         <div className="w-full max-w-5xl mx-auto p-6 space-y-6">
       <div className="flex items-center justify-between">
         <button onClick={() => nav("/menu/packages")} className="inline-flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 transition cursor-pointer" >
-          <ArrowLeft className="w-4 h-4 mr-2" /> Back to Packages
+          <ArrowLeft className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition cursor-pointer" /> Back to Packages
         </button>
       </div>
 
-
-      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+      <div className="bg-card text-card-foreground border border-border rounded-xl overflow-hidden shadow-sm">
     
-        <div className="bg-gray-700 text-white px-6 py-5 flex items-center justify-between">
+         <div className="bg-muted px-6 py-5 flex items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold">{PKG.name}</h1>
-            <p className="text-xs text-blue-100 mt-0.5">Code: {PKG.id}</p>
+            <h1 className="text-2xl font-bold text-foreground">{PKG.name}</h1>
+            <p className="text-xs text-muted-foreground mt-1">Code: {PKG.id}</p>
           </div>
           <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
               PKG.status === "Active"
@@ -100,39 +99,39 @@ function ReadPackage() {
         <div className="p-6 space-y-8">
     
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="flex items-center text-gray-700 bg-gray-200 p-4 rounded-lg border border-gray-100">
-              <DollarSign className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
+            <div className="flex items-center text-foreground bg-muted/50 p-4 rounded-lg border border-border">
+              <DollarSign className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
               <div>
-                <p className="text-xs text-gray-500 uppercase font-semibold">Package Price</p>
-                <p className="text-lg font-bold text-gray-900 mt-0.5">
+                <p className="text-xs text-muted-foreground uppercase font-semibold">Package Price</p>
+                <p className="text-lg font-bold text-foreground mt-0.5">
                   Rs. {Number(PKG.price || 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center text-gray-700 bg-gray-200 p-4 rounded-lg border border-gray-100">
-              <Layers className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
+            <div className="flex items-center text-foreground bg-muted/50 p-4 rounded-lg border border-border">
+              <Layers className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
               <div>
-                <p className="text-xs text-gray-500 uppercase font-semibold">Total Included Items</p>
-                <p className="text-lg font-bold text-gray-900 mt-0.5">{foundITM.length} Items</p>
+                <p className="text-xs text-muted-foreground uppercase font-semibold">Total Included Items</p>
+                <p className="text-lg font-bold text-foreground mt-0.5">{foundITM.length} Items</p>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-gray-100 pt-6 space-y-2">
-            <h3 className="text-base font-semibold text-gray-900 flex items-center">
-              <Info className="w-4 h-4 mr-2 text-blue-600" /> Description
+          <div className="border-t border-border pt-6 space-y-2">
+            <h3 className="text-base font-semibold text-foreground flex items-center">
+              <Info className="w-4 h-4 mr-2 text-primary" /> Description
             </h3>
-            <p className="text-sm text-gray-600 leading-relaxed bg-gray-200 p-4 rounded-lg border border-gray-100">
+            <p className="text-sm text-muted-foreground leading-relaxed bg-muted/50 p-4 rounded-lg border border-border">
               {PKG.description && PKG.description.trim() !== "" ? PKG.description : "No description provided for this package."}
             </p>
           </div>
 
-          <div className="border-t border-gray-100 pt-6 space-y-4">
-            <h3 className="text-base font-semibold text-gray-900 flex items-center">
-              <PackageCheck className="w-4 h-4 mr-2 text-blue-600" /> Included Menu Items
+          <div className="border-t border-border pt-6 space-y-4">
+            <h3 className="text-base font-semibold text-foreground flex items-center">
+              <PackageCheck className="w-4 h-4 mr-2 text-primary" /> Included Menu Items
             </h3>
-            <div className="border border-gray-200 rounded-lg overflow-hidden">
+            <div className="border border-border rounded-lg overflow-hidden">
               <DataTables columns={packageITMCol()} data={foundITM} searchHide={true} />
             </div>
           </div>

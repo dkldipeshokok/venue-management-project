@@ -53,6 +53,17 @@ const bookingFields = ({customer, venue, PKG}: options)  : FieldConfig[] => [
         placeholder: "Enter Number of Guests"
     },
     {
+        name: "shift",
+        label: "Shift",
+        type: "select",
+        placeholder: "Select Shift",
+        options: [
+            { value: "Whole Day", label: "Whole Day" },
+            { value: "Morning", label: "Morning (7 AM - 4 PM)" },
+            { value: "Evening", label: "Evening (5:30 PM - 10:30 PM)" },
+        ]
+    },
+    {
         name: "price",
         label: "Base Price",
         type: "number",
@@ -102,6 +113,12 @@ const bookingFields = ({customer, venue, PKG}: options)  : FieldConfig[] => [
             { value: "Completed", label: "Completed" },
             { value: "Cancelled", label: "Cancelled" }
         ]
+    },
+    {
+        name: "description",
+        label: "Description",
+        type: "textarea",
+        placeholder: "Enter Description (Optional)"
     }
 ];
 

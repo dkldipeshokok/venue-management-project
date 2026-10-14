@@ -56,7 +56,7 @@ function CreateBooking() {
     const calculatedTotal = subtotal - discountAmount;
     const calculatedDue = calculatedTotal - (Number(data.advance) || 0);
 
-    const newBooking: BookingData = { ...data, id: generatedId, bookby: U.name, total: calculatedTotal, due: calculatedDue,
+    const newBooking: BookingData = { ...data, id: generatedId, bookby: U.name, total: calculatedTotal, due: calculatedDue,description: data.description ?? "",
     };
 
     const updatedBookings = [...bookings, newBooking];
@@ -93,6 +93,8 @@ function CreateBooking() {
         advance: 0,
         due: 0,
         status: "Pending",
+        shift: "Whole Day",
+        description: "",
       }}
       onValuesChange={(values, setValue)  => {
           const selectedVenue = V.find( (venue) => String(venue.id) === String(values.venue));

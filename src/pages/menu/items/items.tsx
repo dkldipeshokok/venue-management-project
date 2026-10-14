@@ -51,7 +51,7 @@ function MenuItems() {
         const catSC = SC.filter((i) => String(i.category) === String(category.id));
 
         return (
-          <div key={category.id} className="border border-gray-200 rounded-lg mb-8" >
+          <div key={category.id} className="border border-border rounded-lg mb-8" >
             <div className="text-xl font-semibold mb-3 bg-green-500 px-3 py-3 rounded-md">
               {category.name}
             </div>
@@ -68,7 +68,7 @@ function MenuItems() {
                   <div key={SCat.id} className="border border-border rounded-md p-3 bg-muted/40">
                     <div className="flex items-center space-x-2 mb-3">
                       <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                      <h3 className="text-md font-medium text-white">   {SCat.name}  </h3>
+                      <h3 className="text-md font-medium text-gray-400">   {SCat.name}  </h3>
 
                       <span className="text-xs text-gray-500">
                         ({subCatITM.length}{" "}

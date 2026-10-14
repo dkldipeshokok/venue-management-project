@@ -49,6 +49,13 @@ export const bookingSchema = yup.object({
         .string()
         .oneOf(["Pending", "Confirmed", "Completed", "Cancelled"], "Choose the status")
         .required("Status is required"),
+    shift: yup
+        .string()
+        .oneOf([ "Whole Day", "Morning", "Evening"], "Choose the start shift")
+        .required(),
+    description: yup
+        .string()
+        .optional()
 });
 
 export type BookingValues = yup.InferType<typeof bookingSchema>;
