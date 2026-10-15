@@ -1,5 +1,8 @@
-import type { BookingData, Customer, VenueData } from "@/types/types";
-import { ArrowLeft, CalendarDays, Clock, DollarSign, Info, User, Home, NotepadText } from "lucide-react";
+import { packageITMCol, type foundPKGITM } from "@/components/columns/menu/package";
+import { DataTables } from "@/components/TableComponent/Table";
+import type { packageValue } from "@/schemas/menu/package";
+import type { BookingData, CategoryData, Customer, ItemData, SubCategoryData, VenueData } from "@/types/types";
+import { ArrowLeft, CalendarDays, Clock, DollarSign, Info, User, Home, NotepadText, PackageCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
@@ -13,6 +16,11 @@ function ReadBooking() {
   const [C, setC] = useState<Customer[]>([]);
   const [V, setV] = useState<VenueData[]>([]);
 
+  const [PKG, setPKG] = useState<packageValue[]>([]);
+  const [foundITM, setfoundITM] = useState<foundPKGITM[]>([]);
+
+  
+
   useEffect(() => {
     if (!id) {
       toast.error("NO Booking found");
@@ -22,15 +30,60 @@ function ReadBooking() {
 
     const storedB = localStorage.getItem("bookings");
     const bookings: BookingData[] = storedB ? JSON.parse(storedB) : [];
-    const searchedB = bookings.find((i) => String(i.id) === String(id));
 
-    setB(searchedB ?? null);
+    const searchedB = bookings.find((i) => String(i.id) === String(id));
+    if (!searchedB) {
+      setB(null);
+      setfoundITM([]);
+      toast.error("Booking not found");
+      return;
+    }
+    setB(searchedB);
 
     const storedC = localStorage.getItem("customers");
     if (storedC) setC(JSON.parse(storedC));
 
     const storedV = localStorage.getItem("venues");
     if (storedV) setV(JSON.parse(storedV));
+
+
+    const storedPKG = localStorage.getItem("packages");
+    const packages: packageValue[] = storedPKG ? JSON.parse(storedPKG) : [];
+    setPKG(packages);
+
+    const searchedPKG = packages.find(
+      (i) => String(i.id) === String(searchedB.package)
+    );
+
+    if (searchedPKG) {
+      const storedITM = localStorage.getItem("items");
+      const storedCAT = localStorage.getItem("categories");
+      const storedSCAT = localStorage.getItem("subcategories");
+
+      const items: ItemData[] = storedITM ? JSON.parse(storedITM) : [];
+      const categories: CategoryData[] = storedCAT ? JSON.parse(storedCAT) : [];
+      const subcategories: SubCategoryData[] = storedSCAT  ? JSON.parse(storedSCAT) : [];
+
+      const itemID = searchedPKG.menuItems || [];
+
+      const found: foundPKGITM[] = itemID.map((itm) => {
+        const item = items.find((i) => String(i.id) === String(itm));
+        const category = categories.find( (c) => String(c.id) === String(item?.category));
+        const subcategory = subcategories.find( (s) => String(s.id) === String(item?.sub));
+
+        return {
+          id: item?.id || String(itm),
+          name: item?.name || "Unknown Item",
+          categoryName: category?.name || "-",
+          subCategoryName: subcategory?.name || "-",
+        };
+      });
+      setfoundITM(found);
+    } 
+    else {
+      setfoundITM([]);
+    }
+
   }, [id, nav]);
 
   if (!B) {
@@ -123,11 +176,6 @@ function ReadBooking() {
               </div>
 
               <div className="bg-muted/50 p-4 rounded-lg border border-border">
-                <p className="text-xs text-muted-foreground uppercase font-semibold">Menu Package</p>
-                <p className="text-sm font-medium mt-1">{B.package || "-"}</p>
-              </div>
-
-              <div className="bg-muted/50 p-4 rounded-lg border border-border">
                 <p className="text-xs text-muted-foreground uppercase font-semibold">Booked By</p>
                 <p className="text-sm font-medium mt-1">{B.bookby || "-"}</p>
               </div>
@@ -138,6 +186,76 @@ function ReadBooking() {
               </div>
             </div>
           </div>
+
+          <div className="border-t border-border pt-6 space-y-4">
+            <h3 className="text-base font-semibold text-foreground flex items-center">
+              <PackageCheck className="w-4 h-4 mr-2 text-primary" />
+              Menu Package
+            </h3>
+            {(() => {
+              const selectedPackage = PKG.find( (pkg) => String(pkg.id) === String(B.package));
+
+              if (!selectedPackage) {
+                return (
+                  <p className="text-sm text-muted-foreground">
+                    Package details not found.
+                  </p>
+                );
+              }
+
+              return (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-muted/50 p-4 rounded-lg border border-border">
+                      <p className="text-xs text-muted-foreground uppercase font-semibold">
+                        Package Name
+                      </p>
+                      <p className="text-lg font-bold text-foreground mt-1">
+                        {selectedPackage.name}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Code: {selectedPackage.id}
+                      </p>
+                    </div>
+
+                    <div className="bg-muted/50 p-4 rounded-lg border border-border">
+                      <p className="text-xs text-muted-foreground uppercase font-semibold">
+                        Package Price
+                      </p>
+                      <p className="text-lg font-bold text-foreground mt-1">
+                        Rs. {Number(selectedPackage.price || 0).toLocaleString("en-US", {
+                          minimumFractionDigits: 2,
+                        })}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {foundITM.length} included items
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="bg-muted/50 p-4 rounded-lg border border-border">
+                    <p className="text-xs text-muted-foreground uppercase font-semibold mb-2">
+                      Description
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {selectedPackage.description?.trim() ||
+                        "No description provided for this package."}
+                    </p>
+                  </div>
+
+                  <div className="border border-border rounded-lg overflow-hidden">
+                    <DataTables
+                      columns={packageITMCol()}
+                      data={foundITM}
+                      searchHide={true}
+                    />
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+
+
 
           <div className="border-t border-border pt-6 space-y-4">
             <h3 className="text-base font-semibold text-foreground flex items-center">
