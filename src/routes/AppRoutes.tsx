@@ -15,6 +15,29 @@ import User from "@/pages/user/user"
 import CreateUser from "@/pages/user/create"
 import UpdateUser from "@/pages/user/update"
 
+import Booking from "@/pages/booking/booking"
+import CreateBooking from "@/pages/booking/create"
+import UpdateBooking from "@/pages/booking/update"
+import ReadBooking from "@/pages/booking/read"
+
+import Category from "@/pages/menu/categories/categories"
+import CreateCategory from "@/pages/menu/categories/create"
+import UpdateCategory from "@/pages/menu/categories/update"
+
+import SubCategory from "@/pages/menu/subcategories/subcategories"
+import CreateSubCategory from "@/pages/menu/subcategories/create"
+import UpdateSubCategory from "@/pages/menu/subcategories/update"
+
+import Item from "@/pages/menu/items/items"
+import CreateItem from "@/pages/menu/items/create"
+import UpdateItem from "@/pages/menu/items/update"
+
+import Package from "@/pages/menu/packages/packages"
+import CreatePackage from "@/pages/menu/packages/create"
+import UpdatePackage from "@/pages/menu/packages/update"
+import ReadPackage from "@/pages/menu/packages/read"
+
+
 import { Toaster } from "sonner"
 
 
@@ -34,6 +57,32 @@ function AppRoutes(){
 
             <Route path="/venue" element={<Venue />} />
             <Route path="/venue/create" element={<CreateVenue/>} />
+            <Route path="/venue/edit/:id" element={<UpdateVenue/>} />
+            <Route path="/venue/update/:id" element={<UpdateVenue/>} />
+            <Route path="/venue/read/:id" element={<ViewVenue/>} />
+
+            <Route path="/booking" element={<Booking />} />
+            <Route path="/booking/create" element={<CreateBooking />} />
+            <Route path="/booking/update/:id" element={<UpdateBooking />} />
+            <Route path="/booking/read/:id" element={<ReadBooking />} />
+
+            <Route path="/menu/categories" element={<Category />} />
+            <Route path="/menu/categories/create" element={<CreateCategory />} />
+            <Route path="/menu/categories/update/:id" element={<UpdateCategory />} />
+
+            <Route path="/menu/subcategories" element={<SubCategory />} />
+            <Route path="/menu/subcategories/create" element={<CreateSubCategory />} />
+            <Route path="/menu/subcategories/update/:id" element={<UpdateSubCategory />} />
+
+            <Route path="/menu/items" element={<Item />} />
+            <Route path="/menu/items/create" element={<CreateItem />} />
+            <Route path="/menu/items/update/:id" element={<UpdateItem />} />
+
+            <Route path="/menu/packages" element={<Package />} />
+            <Route path="/menu/packages/read/:id" element={<ReadPackage />} />
+            <Route path="/menu/packages/create" element={<CreatePackage />} />
+            <Route path="/menu/packages/update/:id" element={<UpdatePackage />} />
+
 
 
             <Route path="/user" element={<User />} />
@@ -41,8 +90,7 @@ function AppRoutes(){
             <Route path="/user/update/:id" element={<UpdateUser/>} />
         
 
-            <Route path="/venue/update/:id" element={<UpdateVenue/>} />
-            <Route path="/venue/read/:id" element={<ViewVenue/>} />
+            
             </Route>
             
         </Routes>

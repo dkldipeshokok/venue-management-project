@@ -291,7 +291,8 @@ export interface FieldConfig {
   type: FieldType;
   placeholder?: string;
   description?: string;
-  options?: FieldOption[]; // For select type
+  options?: FieldOption[] | ((formValues: Record<string, any>) => FieldOption[]); // For select type
+  disabled?: boolean;
 }
 
 export type Customer = {
@@ -312,6 +313,54 @@ export type VenueData = {
   description: string;
   capacity: number;
   status: "Active" | "Inactive";
+}
+export type BookingData = {
+  id : string;
+  customer : string;
+  venue : string;
+  type : string;
+  package : string;
+  bookby : string;
+  bookfrom : string;
+  bookto : string;
+  shift: "Whole Day" | "Morning" | "Evening";
+  guest : number;
+  price : number;
+  food : number;
+  discount: number;
+  total : number;
+  advance : number;
+  due : number;
+  status:  "Pending" | "Confirmed" | "Completed" | "Cancelled";
+  description: string;
+}
+export type CategoryData = {
+  id: string;
+  name: string;
+  subcategories: number;
+  status: "Active" | "Inactive";
+}
+export type SubCategoryData = {
+  id: string;
+  name: string;
+  category: string;
+  status: "Active" | "Inactive";
+}
+export type ItemData = {
+  id: string;
+  name: string;
+  category: string;
+  sub: string;
+  unit: "Plate" | "Person" | "Bottle" | "Glass" | "Piece" | "Package" | "Hour" | "Day" | "Set";
+  status: "Active" | "Inactive";
+}
+export type PackageData = {
+  id: string;
+  name: string;
+  price: number;
+  status: "Active" | "Inactive";
+  description: string;
+  menuItems: string[];
 }
 
 export type User = {
